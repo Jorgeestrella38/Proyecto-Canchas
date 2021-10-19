@@ -1,0 +1,23 @@
+{
+  "name": "proyecto-canchas",
+  "version": "1.0.0",
+  "description": "Calendario para agendar canchas UP",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmcsuite/Proyecto-Canchas.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmcsuite/Proyecto-Canchas/issues"
+  },
+  "homepage": "https://github.com/jmcsuite/Proyecto-Canchas#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
