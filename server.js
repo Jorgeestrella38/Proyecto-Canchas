@@ -1,7 +1,7 @@
+/*jshint esversion: 6 */ 
 // -----------------------SQL -----------------------
 const dbUtils = require("./database/connection.js");
 const  dbConnection = dbUtils.createConnection();
-
 
 
 
@@ -27,7 +27,7 @@ const userInfo =
 // -----------------------Functions-----------------------
 // Pagina de prueba con todos los links
 app.get('/', (req, res) => {
-    res.render('pages/home', { userInfo: userInfo });
+    res.render('pages/links', { userInfo: userInfo });
 });
 
 // Home
