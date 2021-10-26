@@ -9,6 +9,7 @@ const  dbConnection = dbUtils.createConnection();
 const express = require('express');
 const path = require('path');
 const app = express();
+const port = 3000;
   
 // Set EJS as templating engine 
 app.set('views', path.join(__dirname, '/views'));
@@ -25,8 +26,13 @@ const userInfo =
 
 
 // -----------------------Functions-----------------------
-// Pagina de prueba con todos los links
+// Principal
 app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
+
+// Pagina de prueba con todos los links
+app.get('/Links', (req, res) => {
     res.render('pages/links', { userInfo: userInfo });
 });
 
@@ -61,6 +67,7 @@ app.get('/MasInfo', (req, res) => {
 });
   
 // Server setup
-app.listen(3000, function (req, res) {
-    console.log("Connected on port:3000");
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
 });
+
