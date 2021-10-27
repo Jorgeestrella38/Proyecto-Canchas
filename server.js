@@ -27,6 +27,8 @@ const userInfo =
 
 // -----------------------Functions-----------------------
 // Principal
+app.set('view engine', 'ejs')
+
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });

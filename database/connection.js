@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */ 
-const fs = require('fs');
 const mysql = require('mysql');
+const fs = require('fs');
 
 // Reads credentials
 function getCredentials(){
