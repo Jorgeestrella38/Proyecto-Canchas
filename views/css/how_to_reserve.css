@@ -9,7 +9,6 @@
     width: 30vw;
     height: 17vw;
     border-radius: 2vh;
-/*background-image: url('');*/
     background-size: cover;
     margin-bottom:4vh;
     margin-top: 5vh;
@@ -20,4 +19,17 @@
     margin-bottom:4vh;
     margin-top: 5vh;
     font-size: 2vh;
+}
+.trysquare{
+    width: 35vw;
+    height: 7vw;
+    border-radius: 2vh;
+    background-color: #8A1538;
+    border-style: solid;
+    border-color: #B79257;
+    color: white;
+    font-size: 3vw;
+    border-width: .7vw;
+    margin-bottom:4vh;
+    margin-top: 5vh;
 }
