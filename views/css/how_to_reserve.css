@@ -1,0 +1,38 @@
+.bdy{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.square{
+    width: 30vw;
+    height: 17vw;
+    border-radius: 2vh;
+    background-size: cover;
+    margin-bottom:4vh;
+    margin-top: 5vh;
+}
+
+.squareText{
+    width: 30vw;
+    height: 15vh;
+    margin-bottom:4vh;
+    margin-top: 5vh;
+    font-size: 2vh;
+}
+
+.trysquare{
+    width: 35vw;
+    height: 7vw;
+    border-radius: 2vh;
+    background-color: #8A1538;
+    border-style: solid;
+    border-color: #B79257;
+    color: white;
+    font-size: 3vw;
+    border-width: .7vw;
+    margin-bottom:4vh;
+    margin-top: 5vh;
+}
