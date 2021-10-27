@@ -19,7 +19,11 @@ const port = 3000;
 
 // Set Express sessions with passport
 app.use(express.static("public"));
-app.use(session({ secret: "cats" }));
+app.use(session(
+  { secret: "cats",
+    resave: true,
+    saveUninitialized: true,  
+  }));
 app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
