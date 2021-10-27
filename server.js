@@ -3,6 +3,11 @@
 const dbUtils = require("./database/connection.js");
 const  dbConnection = dbUtils.createConnection();
 
+// -----------------------Passport -----------------------
+const passport = require('passport');
+const passportFactory = require("./database/passportFactory.js");
+const session = require("express-session");
+passportFactory.setupPassport(passport);
 
 
 // -----------------------Express-----------------------
@@ -10,6 +15,14 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = 3000;
+
+
+// Set Express sessions with passport
+app.use(express.static("public"));
+app.use(session({ secret: "cats" }));
+app.use(express.urlencoded({ extended: false }));
+app.use(passport.initialize());
+app.use(passport.session());
   
 // Set EJS as templating engine 
 app.set('views', path.join(__dirname, '/views'));
@@ -17,17 +30,15 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname));
   
-// Variable de prueba teemporal
+// Variable de prueba temporal
 const userInfo = 
     {
         name: "",
         email: ""
-    }
+    };
 
 
 // -----------------------Functions-----------------------
-// Principal
-app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -68,6 +79,16 @@ app.get('/MasInfo', (req, res) => {
     res.render('pages/moreInfo', { userInfo: userInfo });
 });
   
+// Google Auth
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['email', 'profile'] }));
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
 // Server setup
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
