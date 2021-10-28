@@ -34,13 +34,13 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname));
   
-// Variable de prueba temporal
-const userInfo = 
+/*
+userInfo = 
     {
-        name: "",
-        email: ""
+        id: "0226259",
+        name: "Juan Marquina Cancino"
     };
-
+*/
 
 // -----------------------Functions-----------------------
 
@@ -51,17 +51,17 @@ app.get('/', (req, res) => {
 
 // Pagina de prueba con todos los links
 app.get('/Links', (req, res) => {
-    res.render('pages/links', { userInfo: userInfo });
+    res.render('pages/links', { userInfo: req.user });
 });
 
 // Home
 app.get('/Inicio', (req, res) => {
-    res.render('pages/home', { userInfo: userInfo });
+    res.render('pages/home', { userInfo: req.user });
 });
 
 // Reservaciones
 app.get('/Reservaciones', (req, res) => {
-    res.render('pages/reservations', { userInfo: userInfo });
+    res.render('pages/reservations', { userInfo: req.user });
 });
 
 // Login
@@ -77,12 +77,12 @@ app.get('/CerrarSesion', (req, res) =>{
 
 // How to reserve
 app.get('/ComoReservar', (req, res) => {
-    res.render('pages/howToReserve', { userInfo: userInfo });
+    res.render('pages/howToReserve', { userInfo: req.user });
 });
 
 // More info
 app.get('/MasInfo', (req, res) => {
-    res.render('pages/moreInfo', { userInfo: userInfo });
+    res.render('pages/moreInfo', { userInfo: req.user });
 });
   
 // Google Auth

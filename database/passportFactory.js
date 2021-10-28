@@ -7,6 +7,13 @@ function getGoogleCred(){
     let credentials = JSON.parse(rawData);
     return credentials;
 }
+
+function parseEmail(email){
+    let id = email.split('@');
+    return id[0];
+}
+
+
 function setupPassport(passport){
     const credentials = getGoogleCred();
     passport.use(new GoogleStrategy({
@@ -16,9 +23,10 @@ function setupPassport(passport){
     },
     function(accessToken, refreshToken, profile, cb) {
             let user = {
-                email: profile.emails[0].value,
+                id: parseEmail(profile.emails[0].value),
                 name: profile.displayName
             };
+            console.log(user);
             cb(null, user);
         })
     );
