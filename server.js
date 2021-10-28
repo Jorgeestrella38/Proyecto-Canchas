@@ -46,6 +46,7 @@ const userInfo =
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
+    // res.redirect('/Inicio');
 });
 
 // Pagina de prueba con todos los links
@@ -65,12 +66,13 @@ app.get('/Reservaciones', (req, res) => {
 
 // Login
 app.get('/IniciarSesion', (req, res) => {
-    res.render('pages/login', { userInfo: userInfo });
+    res.redirect('/auth/google');
 });
 
-// Register
-app.get('/Registrarse', (req, res) => {
-    res.render('pages/register', { userInfo: userInfo });
+//Logout
+app.get('/CerrarSesion', (req, res) =>{
+    req.logout();
+    res.redirect('/Inicio');
 });
 
 // How to reserve
@@ -90,7 +92,7 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/Inicio');
   });
 
 // Server setup
