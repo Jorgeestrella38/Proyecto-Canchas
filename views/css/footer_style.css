@@ -1,0 +1,19 @@
+.footer-backround
+{
+    background-image: url(/views/assets/Fondo.png); 
+    background-position-x: right; 
+    background-size: contain; 
+    background-repeat: no-repeat; 
+    background-color: #F3F3F3  ;
+}
+
+.footer-text
+{
+    color: #B79257; 
+    font-size: .8rem;
+}
+
+.footer-links
+{
+    color: #B79257; 
+}
