@@ -9,6 +9,7 @@
 
     <!-- CSS utilizado solo para Como Reservar -->
     <link rel="stylesheet" href="views/css/how_to_reserve.css" type="text/css">
+    
 
 </head>
 <body>
@@ -24,7 +25,7 @@
         <div class="bdy">
 
             <div style="align-items: center;">
-                <div class="square" style="background-color:gray;">
+                <div class="square" style="background-color:gray;" id="1" >
                 </div>
                 <div class="squareText">
                     <h5>Paso numero  1 </h5>
@@ -33,24 +34,27 @@
             </div>
 
             <div style="align-items: center;">
-                <div class="square" style="background-color:gray;">
+                <div class="square" style="background-color:gray;" id="2">
                 </div>
                 <div class="squareText" >
                     <h5>Paso numero 2 </h5>
-                    <p>Ingresa tu id y contraseña en los campos mostrados</p>
+                    <p>Ingresa tu id y contraseña en los campos</p>
                 </div>
             </div>
 
-            <div style="align-items: center;">
-                <div class="square" style="background-color:gray;"></div>
+            <div style="align-items: center;" >
+                <div class="square" style="background-color:gray;" id="3"></div>
                 <div class="squareText" >
                     <h5>Paso numero 3 </h5>
                     <p>Selecciona la fecha y el horario de reserva</p>
                 </div>
             </div>
+        </div>
 
+        <div class="bdy">
+            
             <div style="align-items: center;">
-                <div class="square" style="background-color:gray;"></div>
+                <div class="square" style="background-color:gray;" id="4"></div>
                 <div class="squareText" >
                     <h5>Paso numero 4 </h5>
                     <p>Envia tu solicitud</p>
@@ -58,7 +62,7 @@
             </div>
 
             <div style="align-items: center;">
-                <div class="square" style="background-color:gray;"></div>
+                <div class="square" style="background-color:gray;" id="5"></div>
                 <div class="squareText">
                     <h5>Paso numero 5 </h5>
                     <p>Recibe la confirmación de reserva</p>
@@ -81,7 +85,7 @@
         <%- include('./footer'); %>
     </footer>
 
+    <script src="views/js/howToReserve.js"></script>
 
-    
 </body>
 </html>
