@@ -22,20 +22,21 @@ function setupPassport(passport, connection){
         clientSecret: credentials.web.client_secret,
         callbackURL: "/auth/google/callback"
     },
-    function(accessToken, refreshToken, profile, cb) {
+    (accessToken, refreshToken, profile, cb) => {
             let id = parseEmail(profile.emails[0].value);
 
             connection.query(dbQueries.getUserFromID(id), (error, results, fields) => {
-                if(results.length == 0){
+                if (results.length == 0) {
                     // add user if none found
                     let name = profile.displayName;
-                    connection.query(dbQueries.addUser(id, name), (error, results, fields) =>{
-                        if(error) cb(error);
+                    connection.query(dbQueries.addUser(id, name), (error, results, fields) => {
+                        if (error)
+                            cb(error);
                         connection.query(dbQueries.getUserFromID(id), (error, results, fields) => {
                             cb(error, results[0]);
                         });
                     });
-                }else{
+                } else {
                     cb(error, results[0]);
                 }
             });
@@ -46,12 +47,15 @@ function setupPassport(passport, connection){
     // send user ID, 
     // Return DB user when deserialized
     passport.serializeUser(function(user, cb) {
-        cb(null, user);
+        cb(null, user.ID);
       });
     
     passport.deserializeUser(function(obj, cb) {
-        cb(null, obj);
-      });
+        connection.query(dbQueries.getUserFromID(obj), (error, results, fields) => {
+            cb(null, results[0]);
+        }
+      );
+    });
     
 
 }

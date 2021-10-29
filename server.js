@@ -37,8 +37,9 @@ app.use(express.static(__dirname));
 /*
 userInfo = 
     {
-        id: "0226259",
-        name: "Juan Marquina Cancino"
+        ID: "0226259",
+        Nombre_Completo: "Juan Marquina Cancino",
+        Es_Admin: true
     };
 */
 
