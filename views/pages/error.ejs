@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Head -->
+    <%- include('./head'); %>
+
+    <!-- Titulo -->
+    <title>Inicio</title>
+
+    <!-- CSS utilizado solo para Inicio -->
+    <link rel="stylesheet" href="views/css/error_style.css" type="text/css">
+
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <%- include('./navbar'); %>
+    </header>
+
+    <!-- Error Inicio -->
+    <div class="container mt-3 mb-3">
+        <h1>Error:</h1>
+        <!-- <h2> &nbsp;&nbsp;&nbsp;&nbsp; Nombre/causa del error.</h2> -->
+        <h2> &nbsp;&nbsp;&nbsp;&nbsp; <%=error.message%></h2>
+        <div class="card mt-5">
+            <div class="card-header titulo">
+                <h3>¿Cómo lo soluciono?</h3>
+            </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <!-- <h4 class="solucion">Propuesta de solución.</h4> -->
+                <h4 class="solucion"><%=error.solution%></h4>
+                <footer class="blockquote-footer mt-3">Si no te sirvió, contacta a soporte por el siguiente correo: <cite title="Correo">correo@loquesea.com</cite></footer>
+              </blockquote>
+            </div>
+        </div>
+    </div>
+    <!-- Error Final -->
+
+    <!-- Footer -->
+    <footer>
+        <%- include('./footer'); %>
+    </footer>
+</body>
+</html>
