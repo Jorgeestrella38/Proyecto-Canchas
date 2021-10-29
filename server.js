@@ -7,7 +7,7 @@ const  dbConnection = dbUtils.createConnection();
 const passport = require('passport');
 const passportFactory = require("./database/passportFactory.js");
 const session = require("express-session");
-passportFactory.setupPassport(passport);
+passportFactory.setupPassport(passport, dbConnection);
 
 
 // -----------------------Express-----------------------
@@ -34,53 +34,56 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname));
   
-// Variable de prueba temporal
-const userInfo = 
+/*
+userInfo = 
     {
-        name: "",
-        email: ""
+        ID: "0226259",
+        Nombre_Completo: "Juan Marquina Cancino",
+        Es_Admin: true
     };
-
+*/
 
 // -----------------------Functions-----------------------
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
+    // res.redirect('/Inicio');
 });
 
 // Pagina de prueba con todos los links
 app.get('/Links', (req, res) => {
-    res.render('pages/links', { userInfo: userInfo });
+    res.render('pages/links', { userInfo: req.user });
 });
 
 // Home
 app.get('/Inicio', (req, res) => {
-    res.render('pages/home', { userInfo: userInfo });
+    res.render('pages/home', { userInfo: req.user });
 });
 
 // Reservaciones
 app.get('/Reservaciones', (req, res) => {
-    res.render('pages/reservations', { userInfo: userInfo });
+    res.render('pages/reservations', { userInfo: req.user });
 });
 
 // Login
 app.get('/IniciarSesion', (req, res) => {
-    res.render('pages/login', { userInfo: userInfo });
+    res.redirect('/auth/google');
 });
 
-// Register
-app.get('/Registrarse', (req, res) => {
-    res.render('pages/register', { userInfo: userInfo });
+//Logout
+app.get('/CerrarSesion', (req, res) =>{
+    req.logout();
+    res.redirect('/Inicio');
 });
 
 // How to reserve
 app.get('/ComoReservar', (req, res) => {
-    res.render('pages/howToReserve', { userInfo: userInfo });
+    res.render('pages/howToReserve', { userInfo: req.user });
 });
 
 // More info
 app.get('/MasInfo', (req, res) => {
-    res.render('pages/moreInfo', { userInfo: userInfo });
+    res.render('pages/moreInfo', { userInfo: req.user });
 });
   
 // Google Auth
@@ -90,7 +93,7 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/Inicio');
   });
 
 // Server setup
