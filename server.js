@@ -43,6 +43,12 @@ userInfo =
     };
 */
 
+const error = 
+    {
+        message: "Inicio de sesión fallido",
+        solution: "Revisa que estés accediendo con tu cuenta institucional, pues únicamente con esta podrás acceder a todas las funciones de usuario. Si no perteneces a la UP, vete."
+    };
+
 // -----------------------Functions-----------------------
 
 app.get('/', (req, res) => {
@@ -53,6 +59,10 @@ app.get('/', (req, res) => {
 // Pagina de prueba con todos los links
 app.get('/Links', (req, res) => {
     res.render('pages/links', { userInfo: req.user });
+});
+
+app.get('/Error', (req, res) => {
+    res.render('pages/error', { userInfo: req.user, error: error });
 });
 
 // Home
@@ -100,4 +110,3 @@ app.get('/auth/google/callback',
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
-
