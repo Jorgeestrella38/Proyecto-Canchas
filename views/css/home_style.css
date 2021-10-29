@@ -192,12 +192,12 @@ button {
 }
 
 @media only screen and (max-width: 767px) {
-     .img_box {
+     .img_boxInv {
           margin-top: 0px;
           margin-bottom: 0px;
      }
 
-     .img_box figure img {
+     .img_boxInv figure img {
           width: 0%;
      }
 }
