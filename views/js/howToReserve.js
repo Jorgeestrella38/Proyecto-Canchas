@@ -47,3 +47,13 @@
            image.style.marginRight="1vw"
            image.style.marginLeft="1vw"
        }
+
+       var btn= document.getElementById("btn");
+       btn.addEventListener('mouseover', setBtnOn);
+       btn.addEventListener('mouseout', setBtnOut);
+       function setBtnOn(){
+        btn.style.backgroundColor="#B79257"
+       }
+       function setBtnOut(){
+        btn.style.backgroundColor="#8A1538"
+       }
