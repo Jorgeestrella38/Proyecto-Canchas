@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */ 
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const fs = require('fs');
+const dbQueries = require('./commonQueries.js');
 
 function getGoogleCred(){
     let rawData =  fs.readFileSync('./database/google_cred.json');
@@ -14,7 +15,7 @@ function parseEmail(email){
 }
 
 
-function setupPassport(passport){
+function setupPassport(passport, connection){
     const credentials = getGoogleCred();
     passport.use(new GoogleStrategy({
         clientID: credentials.web.client_id,
@@ -22,12 +23,23 @@ function setupPassport(passport){
         callbackURL: "/auth/google/callback"
     },
     function(accessToken, refreshToken, profile, cb) {
-            let user = {
-                id: parseEmail(profile.emails[0].value),
-                name: profile.displayName
-            };
-            console.log(user);
-            cb(null, user);
+            let id = parseEmail(profile.emails[0].value);
+
+            connection.query(dbQueries.getUserFromID(id), (error, results, fields) => {
+                if(results.length == 0){
+                    // add user if none found
+                    let name = profile.displayName;
+                    connection.query(dbQueries.addUser(id, name), (error, results, fields) =>{
+                        if(error) cb(error);
+                        connection.query(dbQueries.getUserFromID(id), (error, results, fields) => {
+                            cb(error, results[0]);
+                        });
+                    });
+                }else{
+                    cb(error, results[0]);
+                }
+            });
+
         })
     );
 

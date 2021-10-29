@@ -7,7 +7,7 @@ const  dbConnection = dbUtils.createConnection();
 const passport = require('passport');
 const passportFactory = require("./database/passportFactory.js");
 const session = require("express-session");
-passportFactory.setupPassport(passport);
+passportFactory.setupPassport(passport, dbConnection);
 
 
 // -----------------------Express-----------------------
