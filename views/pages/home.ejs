@@ -8,27 +8,119 @@
     <title>Inicio</title>
 
     <!-- CSS utilizado solo para Inicio -->
+      <link rel="stylesheet" href="views/css/home_style.css">
 
 </head>
 <body>
-    <!-- Navbar -->
-    <header>
-        <%- include('./navbar'); %>
-    </header>
+
+   <!-- Preloader  -->
+      <div class="loader_bg">
+         <div class="loader"><img src="views/assets/Home/loading2.gif" alt="#" /></div>
+      </div>
+   <!-- end Preloader -->
+
+   <!-- Navbar -->
+      <header>
+         <%- include('./navbar'); %>
+      </header>
+   <!-- end Navbar -->
+	
+
 
     
-    <!-- Home Inicio -->
+   <!-- Home Inicio -->
+	   <!-- Presentacion -->
+      <section class="presentacion_main">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="text-bg">
+                     <div class="padding_lert">
+                        <h1>Bienvenido a Canchas UP</h1>
+                        <span>2021</span>
+                        <img src="views/assets/UP_logo.png" alt="#" />
+                        <p style="margin-top:50px">Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, perferendis? Enim voluptatum rem temporibus deserunt dolorum facere, dolores iusto soluta. Voluptas ab, commodi earum quae veritatis dolor nam accusamus rerum.</p>
+                        <a href="/MasInfo">Más información</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end Presentacion -->
+
+      <!-- Seccion Blanca -->
+      <div class="seccionBlanca1">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-6">
+                  <div class="blanca1_box">
+                     <div class="tituloPagina">
+                        <h2><span class="text_norlam">Disfruta y respeta</span> <br>Saca lo mejor de ti</h2>
+                     </div>
+                     <p> Recordar que nos encontramos en época de pandemia, se deben tomar las precauciones necesarias y respetar a nuestros tanto a nuestro prójimo como a las instalaciones. </p>
+                  </div>
+               </div>
+               <div class="col-md-6 my-auto">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="img_box">
+                           <figure><img src="views/assets/Home/Deporte1.jpg" alt="#"/></figure>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="img_box">
+                           <figure><img src="views/assets/Home/Deporte2.jpg" alt="#"/></figure>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="img_box">
+                           <figure><img src="views/assets/Home/Deporte3.jpg" alt="#"/></figure>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end Seccion Blanca -->
+
+      <!-- Seccion Pintada -->
+      <div class="seccionPintada1">
+         <div class="container">
+            <div class="row d_flex">
+               <div class="col-md-6">
+                  <div class="seccionPintada1_img">
+                     <figure><img src="views/assets/Home/MuroUP.jpg" alt="#"/></figure>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="seccionPintada1_text">
+                     <div class="tituloPagina">
+                        <h2>Reserva ya</h2>
+                        <p> Reserva una de nuestras canchas y disfruta de la experiencia de practicar el deporte de tu preferencia con tranquilidad. </p>
+                        <a class="mas_info" href="/Reservaciones">Ir a Reservaciones</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end Seccion Pintada -->
+
+      <!-- Javascript files -->
+         <script src="views/js/home_jquery.min.js"></script>
+         <script src="views/js/home_custom.js"></script>
 
     <!-- Home Final -->
 
 
 
-    <!-- Footer -->
-    <footer>
-        <%- include('./footer'); %>
-    </footer>
+   <!-- Footer -->
+   <footer>
+      <%- include('./footer'); %>
+   </footer>
+   <!-- end Footer -->
 
-
-    
 </body>
 </html>
