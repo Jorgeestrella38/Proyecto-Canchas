@@ -145,8 +145,6 @@ button {
      align-content: center;
      align-items: center;
      background-size: 100% 100%;
-     border-bottom-left-radius: 3rem;
-     border-bottom-right-radius: 3rem;
 }
 
 
@@ -193,7 +191,7 @@ button {
      margin: 0;
 }
 
-@media only screen and (max-width: 760px) {
+@media only screen and (max-width: 767px) {
      .img_box {
           margin-top: 0px;
           margin-bottom: 0px;
@@ -277,6 +275,17 @@ button {
      line-height: 60px;
      font-weight: bold;
      padding: 0;
+}
+
+@media only screen and (max-width: 770px) {
+     .tituloPagina h2 {
+          font-size: 55px;
+          color: #313131;
+          line-height: 60px;
+          font-weight: bold;
+          padding: 0;
+          margin-top: 60px;
+     }
 }
 
 .d_flex {
