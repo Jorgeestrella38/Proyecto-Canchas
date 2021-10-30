@@ -1,13 +1,4 @@
 /*---------------------------- General ----------------------------*/
-
-body {
-     color: #666666;
-     font-size: 14px;
-     font-family: 'Raleway', sans-serif;
-     line-height: 1.80857;
-     font-weight: normal;
-}
-
 a {
      color: #1f1f1f;
      text-decoration: none !important;
@@ -147,12 +138,22 @@ button {
      background-size: 100% 100%;
 }
 
-
-
+.animacionPresentacion{
+     animation: fadeIn1 4s ease 0s 1 normal forwards;
+}
+   
 /*---------------------------- Seccion Blanca 1 ----------------------------*/
 
 .seccionBlanca1 {
      margin-top: 90px;
+     opacity: 0;
+     
+}
+
+.seccionBlanca1.is-visible{
+     margin-top: 90px;
+     opacity: 1;
+     animation: slideInLeft1 1s ease 0s 1 normal forwards;
 }
 
 .blanca1_box {
@@ -213,6 +214,15 @@ button {
      background: #064a77;
      margin-top: 60px;
      padding: 90px 0;
+     opacity: 0;
+}
+
+.seccionPintada1.is-visible {
+     background: #064a77;
+     margin-top: 60px;
+     padding: 90px 0;
+     opacity: 1;
+     animation: slideInRight1 1s ease 0s 1 normal forwards;
 }
 
 .seccionPintada1 .tituloPagina {
@@ -370,6 +380,43 @@ button {
      transition: ease-in all 0.5s;
      border-radius: 25px;
 }
+
+
+/*---------------------------- Animaciones ----------------------------*/
+@keyframes fadeIn1 {
+     0% {
+          opacity: 0;
+     }
+
+     100% {
+          opacity: 1;
+     }
+}
+
+@keyframes slideInLeft1 {
+     0% {
+          opacity: 0;
+          transform: translateX(-250px);
+     }
+
+     100% {
+          opacity: 1;
+          transform: translateX(0);
+     }
+}
+
+@keyframes slideInRight1 {
+     0% {
+          opacity: 0;
+          transform: translateX(250px);
+     }
+
+     100% {
+          opacity: 1;
+          transform: translateX(0);
+     }
+}
+
 
 
 
