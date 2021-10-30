@@ -43,17 +43,13 @@ userInfo =
     };
 */
 
-const error = 
-    {
-        message: "Inicio de sesión fallido",
-        solution: "Revisa que estés accediendo con tu cuenta institucional, pues únicamente con esta podrás acceder a todas las funciones de usuario. Si no perteneces a la UP, vete."
-    };
+// ----------------------Utils----------------------------
+const errorMessages = require("./utils/errorMessages.js");
 
 // -----------------------Functions-----------------------
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
-    // res.redirect('/Inicio');
+    res.redirect('/Inicio');
 });
 
 // Pagina de prueba con todos los links
@@ -61,8 +57,14 @@ app.get('/Links', (req, res) => {
     res.render('pages/links', { userInfo: req.user });
 });
 
-app.get('/Error', (req, res) => {
-    res.render('pages/error', { userInfo: req.user, error: error });
+// Error permisos no sufucientes
+app.get('/OnlyAdmin', (req, res) => {
+    res.render('pages/error', { userInfo: req.user, error: errorMessages.permisosInsuficientes() });
+});
+
+//Log in Fallido
+app.get('/FailedLogin', (req, res) => {
+    res.render('pages/error', { userInfo: req.user, error: errorMessages.getErrorFailedLogin() });
 });
 
 // Home
@@ -72,7 +74,12 @@ app.get('/Inicio', (req, res) => {
 
 // Reservaciones
 app.get('/Reservaciones', (req, res) => {
-    res.render('pages/reservations', { userInfo: req.user });
+    if(req.user){ 
+        res.render('pages/reservations', { userInfo: req.user });
+    }
+    else{
+        res.redirect('/IniciarSesion');
+    } 
 });
 
 // Login
@@ -101,7 +108,7 @@ app.get('/auth/google',
   passport.authenticate('google', { scope: ['email', 'profile'] }));
 
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { failureRedirect: '/FailedLogin' }),
   function(req, res) {
     res.redirect('/Inicio');
   });
