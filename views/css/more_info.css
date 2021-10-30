@@ -1,0 +1,56 @@
+.campus{
+    display: flex;
+    flex-direction: column;
+}
+.campusImag{
+    height: 50vh;
+    width: 50vw;
+    max-height: 50vw;
+    min-width: 50vh;
+    margin: 0 auto;
+    margin-top: 3vh;
+    margin-bottom: 11vh;
+    background-color: indianred;
+    background-image: url('../assets/More_Info/campus_image_1.jpg');
+    background-size: cover;
+    transform: perspective(750px) translate3d(0px, 0px, -100px) rotateX(27deg) scale(0.9, 0.9) rotatez(10deg);
+    border-radius: 20px;
+    border: 5x solid #e6e6e6;
+    box-shadow: 0 70px 40px -20px rgba(0, 0, 0, 0.2);
+    transition: 0.4s ease-in-out transform;
+}
+.h5t{
+    font-size: 2rem;
+    margin: 0 auto;
+    margin-bottom: 3vh;
+    font-weight: bold;
+}
+.section2{
+    background-color: #B79257;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.bdy{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.square{
+    background-color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    width: 25vw;
+    min-width: 30vh;
+    min-height: 40vw;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    margin-right: 3vw;
+    margin-left: 3vw;
+    font-size: calc(1rem + 1vw);
+    padding-left: 1vw;
+    padding-top: 2vh;
+    border-radius: 5%;
+}
