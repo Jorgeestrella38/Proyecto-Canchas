@@ -49,8 +49,7 @@ const errorMessages = require("./utils/errorMessages.js");
 // -----------------------Functions-----------------------
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
-    // res.redirect('/Inicio');
+    res.redirect('/Inicio');
 });
 
 // Pagina de prueba con todos los links
