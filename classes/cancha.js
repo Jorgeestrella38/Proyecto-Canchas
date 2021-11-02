@@ -21,7 +21,6 @@ function getCanchaFromID(id, connection, fn){
     const query =  queries.getCanchaFromID(id);
     connection.query(query, (error,results, fields) => {
         if(error){
-            console.log(error);
             fn(null);
             return;
         }
