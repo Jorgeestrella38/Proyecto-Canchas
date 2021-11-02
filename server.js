@@ -37,6 +37,7 @@ app.use(express.static(__dirname));
 // ----------------------Prototypes-----------------------------
 const UserClass = require("./classes/user.js");
 const ErrorMessages = require("./classes/errorMessages.js");
+const CanchasClass = require("./classes/cancha.js");
 
 // -----------------------Functions-----------------------
 
@@ -72,6 +73,20 @@ app.get('/Reservaciones', (req, res) => {
     else{
         res.redirect('/IniciarSesion');
     } 
+});
+
+// Paginas de Reservaciones Individuales por cancha
+app.get('/Reservaciones/:idCancha', (req, res) =>{
+    if(req.user){
+        //usuario loggeado
+        CanchasClass.getCanchaFromID(req.params.idCancha, dbConnection, (cancha) => {
+            console.log(cancha);
+            res.send("Hello World");
+        });
+    }
+    else{
+        res.redirect('/IniciarSesion');
+    }  
 });
 
 // Login

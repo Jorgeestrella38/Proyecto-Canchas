@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */ 
 /* 
 En la base de datos...
-userInfo = 
+Usuarios = 
     {
         ID: "0226259",
         Nombre_Completo: "Juan Marquina Cancino",
