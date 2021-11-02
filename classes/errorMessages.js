@@ -27,5 +27,12 @@ let ErrorNotAuthorized = function(){
 };
 Object.setPrototypeOf(ErrorNotAuthorized, ErrorMessage.prototype);
 
+let ErrorPageMissing = function(){
+    const message = "Pagina no encontrada";
+    const solution = "Checa el URL de la pagina o regresa a la pagina de inicio";
+    ErrorMessage.call(this, message, solution);
+};
+Object.setPrototypeOf(ErrorPageMissing, ErrorMessage.prototype);
+
 // exports
-module.exports = { ErrorNoLogin, ErrorFailedLogin, ErrorNotAuthorized};
+module.exports = { ErrorNoLogin, ErrorFailedLogin, ErrorNotAuthorized, ErrorPageMissing};

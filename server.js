@@ -80,8 +80,12 @@ app.get('/Reservaciones/:idCancha', (req, res) =>{
     if(req.user){
         //usuario loggeado
         CanchasClass.getCanchaFromID(req.params.idCancha, dbConnection, (cancha) => {
-            console.log(cancha);
-            res.send("Hello World");
+            if(cancha == null){
+                res.render('pages/error', { userInfo: new UserClass.User(req.user), error: new ErrorMessages.ErrorPageMissing() });
+            }else{
+                // Aqui renderizar pagina de reservacion de la cancha
+                res.send("Hello World");
+            }
         });
     }
     else{
