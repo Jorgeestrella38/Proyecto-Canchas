@@ -34,11 +34,9 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname));
   
-// ----------------------Utils----------------------------
-const errorMessages = require("./utils/errorMessages.js");
-
-// ----------------------User-----------------------------
+// ----------------------Prototypes-----------------------------
 const UserClass = require("./classes/user.js");
+const ErrorMessages = require("./classes/errorMessages.js");
 
 // -----------------------Functions-----------------------
 
@@ -53,12 +51,12 @@ app.get('/Links', (req, res) => {
 
 // Error permisos no sufucientes
 app.get('/OnlyAdmin', (req, res) => {
-    res.render('pages/error', { userInfo: new UserClass.User(req.user), error: errorMessages.permisosInsuficientes() });
+    res.render('pages/error', { userInfo: new UserClass.User(req.user), error: new ErrorMessages.ErrorNotAuthorized() });
 });
 
 //Log in Fallido
 app.get('/FailedLogin', (req, res) => {
-    res.render('pages/error', { userInfo: new UserClass.User(req.user), error: errorMessages.getErrorFailedLogin() });
+    res.render('pages/error', { userInfo: new UserClass.User(req.user), error: new ErrorMessages.ErrorFailedLogin() });
 });
 
 // Home
