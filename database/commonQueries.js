@@ -18,5 +18,27 @@ function getCanchaFromID(id){
     return query;
 }
 
+function getReservaciones(idCancha){
+    const oneYearMiliseconds = 1*365*24*60*60*1000;
+    let fechaInicio = new Date();
+    let fechaFin = new Date();
+
+
+    fechaInicio.setTime(fechaInicio.getTime() - oneYearMiliseconds);
+    fechaInicio = fechaInicio.toISOString().slice(0, 19).replace('T', ' ');
+    
+    fechaFin.setTime(fechaFin.getTime() + oneYearMiliseconds);
+    fechaFin = fechaFin.toISOString().slice(0, 19).replace('T', ' ');
+
+    let query = `SELECT res.ID idReservacion, unix_timestamp(res.Fecha_Inicio) fechaInicio, unix_timestamp(res.Fecha_Fin) fechaFin, res.Aprobada aprobada, res.ID_Usuario idUsuario, res.ID_Cancha idCancha, usr.Nombre_Completo nombreUsuario, usr.Es_Admin esAdmin
+        FROM Reservaciones res
+        JOIN Usuarios usr on res.ID_Usuario = usr.ID
+        WHERE ID_Cancha = ${idCancha} AND
+        (Fecha_Inicio BETWEEN '${fechaInicio}' AND '${fechaFin}')
+        ORDER BY Fecha_Inicio;`;
+
+    return query;
+}
+
 // exports
-module.exports = { getUserFromID, addUser, getCanchaFromID };
+module.exports = { getUserFromID, addUser, getCanchaFromID, getReservaciones };

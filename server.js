@@ -38,6 +38,7 @@ app.use(express.static(__dirname));
 const UserClass = require("./classes/user.js");
 const ErrorMessages = require("./classes/errorMessages.js");
 const CanchasClass = require("./classes/cancha.js");
+const ReservacionesClass = require("./classes/reservacion.js");
 
 // -----------------------Functions-----------------------
 
@@ -84,7 +85,11 @@ app.get('/Reservaciones/:idCancha', (req, res) =>{
                 res.render('pages/error', { userInfo: new UserClass.User(req.user), error: new ErrorMessages.ErrorPageMissing() });
             }else{
                 // Aqui renderizar pagina de reservacion de la cancha
-                res.send("Hello World");
+                ReservacionesClass.getReservacionesOfCancha(cancha, dbConnection, (cancha, reservacionesCancha) => {
+                    console.log(cancha);
+                    console.log(reservacionesCancha);
+                    res.send("Hello World");
+                });
             }
         });
     }
