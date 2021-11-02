@@ -12,5 +12,11 @@ function addUser(id, name, admin = false){
     return query;
 }
 
+function getCanchaFromID(id){
+    let query = `SELECT * FROM Canchas
+    WHERE ID = ${id};`;
+    return query;
+}
+
 // exports
-module.exports = { getUserFromID, addUser };
+module.exports = { getUserFromID, addUser, getCanchaFromID };
