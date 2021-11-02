@@ -18,13 +18,13 @@ let User = function(requestUser){
     }else{
         this.Autentificado = false;
     }
-}
+};
 
 User.prototype.getFirstName = function(){
     if(this.Autentificado == false) return "";
     let firstName = this.Nombre_Completo.split(" ");
     return firstName[0];
-}
+};
 
 // exports
 module.exports = {User};
