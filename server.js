@@ -34,19 +34,11 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname));
   
-/*
-userInfo = 
-    {
-        ID: "0226259",
-        Nombre_Completo: "Juan Marquina Cancino",
-        Es_Admin: true
-        Primer_Nombre: "Juan"
-    };
-*/
-
 // ----------------------Utils----------------------------
 const errorMessages = require("./utils/errorMessages.js");
-const utils = require("./utils/utils.js");
+
+// ----------------------User-----------------------------
+const UserClass = require("./classes/user.js");
 
 // -----------------------Functions-----------------------
 
@@ -56,28 +48,28 @@ app.get('/', (req, res) => {
 
 // Pagina de prueba con todos los links
 app.get('/Links', (req, res) => {
-    res.render('pages/links', { userInfo: utils.getUserInfo(req.user) });
+    res.render('pages/links', { userInfo: new UserClass.User(req.user) });
 });
 
 // Error permisos no sufucientes
 app.get('/OnlyAdmin', (req, res) => {
-    res.render('pages/error', { userInfo: utils.getUserInfo(req.user), error: errorMessages.permisosInsuficientes() });
+    res.render('pages/error', { userInfo: new UserClass.User(req.user), error: errorMessages.permisosInsuficientes() });
 });
 
 //Log in Fallido
 app.get('/FailedLogin', (req, res) => {
-    res.render('pages/error', { userInfo: utils.getUserInfo(req.user), error: errorMessages.getErrorFailedLogin() });
+    res.render('pages/error', { userInfo: new UserClass.User(req.user), error: errorMessages.getErrorFailedLogin() });
 });
 
 // Home
 app.get('/Inicio', (req, res) => {
-    res.render('pages/home', { userInfo: utils.getUserInfo(req.user) });
+    res.render('pages/home', { userInfo: new UserClass.User(req.user) });
 });
 
 // Reservaciones
 app.get('/Reservaciones', (req, res) => {
     if(req.user){ 
-        res.render('pages/reservations', { userInfo: utils.getUserInfo(req.user) });
+        res.render('pages/reservations', { userInfo: new UserClass.User(req.user) });
     }
     else{
         res.redirect('/IniciarSesion');
@@ -97,12 +89,12 @@ app.get('/CerrarSesion', (req, res) =>{
 
 // How to reserve
 app.get('/ComoReservar', (req, res) => {
-    res.render('pages/howToReserve', { userInfo: utils.getUserInfo(req.user) });
+    res.render('pages/howToReserve', { userInfo: new UserClass.User(req.user) });
 });
 
 // More info
 app.get('/MasInfo', (req, res) => {
-    res.render('pages/moreInfo', { userInfo: utils.getUserInfo(req.user) });
+    res.render('pages/moreInfo', { userInfo: new UserClass.User(req.user) });
 });
   
 // Google Auth
