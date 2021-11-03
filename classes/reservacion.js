@@ -20,6 +20,19 @@ let ReservacionesCancha = function(cancha, sqlReservacion){
     this.cancha = cancha;
     this.reservaciones = sqlReservacion;
 };
+ReservacionesCancha.prototype.infoDate = function(date){
+    // En caso de que no se haya "corregido" la hora de js
+    const sixHourMiliseconds = 6*60*60*1000;
+    date.setTime(date.getTime() - sixHourMiliseconds);
+    
+    for (let reservacion of this.reservaciones){
+        if(date.getTime() >= reservacion.fechaInicio*1000 && date.getTime() < reservacion.fechaFin*1000){
+            return reservacion;
+        }
+    }
+    return null;
+};
+
 
 
 function getReservacionesOfCancha(cancha, connection, fn){
@@ -34,6 +47,7 @@ function getReservacionesOfCancha(cancha, connection, fn){
     });
 }
 
+
 //exports
-module.exports = {getReservacionesOfCancha};
+module.exports = {getReservacionesOfCancha, ReservacionesCancha};
 

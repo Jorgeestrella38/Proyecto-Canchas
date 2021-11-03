@@ -86,8 +86,6 @@ app.get('/Reservaciones/:idCancha', (req, res) =>{
             }else{
                 // Aqui renderizar pagina de reservacion de la cancha
                 ReservacionesClass.getReservacionesOfCancha(cancha, dbConnection, (cancha, reservacionesCancha) => {
-                    console.log(cancha);
-                    console.log(reservacionesCancha);
                     res.send("Hello World");
                 });
             }
