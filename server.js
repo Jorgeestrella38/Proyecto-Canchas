@@ -39,6 +39,7 @@ const UserClass = require("./classes/user.js");
 const ErrorMessages = require("./classes/errorMessages.js");
 const CanchasClass = require("./classes/cancha.js");
 const ReservacionesClass = require("./classes/reservacion.js");
+const PeticionesClass = require("./classes/peticionReservacion.js");
 
 // -----------------------Functions-----------------------
 

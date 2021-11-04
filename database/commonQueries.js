@@ -51,5 +51,15 @@ function insertReservacion(fechaInicio, fechaFin, idUsuario, idCancha, aprobado 
     return query;
 }
 
+function checarConflictos(fechaInicio, fechaFin, idCancha){
+    let query = `
+    SELECT count(1) conflictos
+    FROM Reservaciones
+    WHERE Fecha_Inicio < '${fechaFin}'
+    AND Fecha_Fin > '${fechaInicio}'
+    AND ID_Cancha = ${idCancha};`;
+    return query;
+}
+
 // exports
-module.exports = { getUserFromID, addUser, getCanchaFromID, getReservaciones, insertReservacion};
+module.exports = { getUserFromID, addUser, getCanchaFromID, getReservaciones, insertReservacion, checarConflictos};

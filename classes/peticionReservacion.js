@@ -6,12 +6,12 @@ const users = require("./user");
 // Una peticion es el body de un post, y un usuario
 let PeticionReservacion = function(reqUser, cancha, reqBody){
     this.user = reqUser;
-    this.cancha = cancha
+    this.cancha = cancha;
     this.fechaInicio = new Date(reqBody.fechaInicio);
     this.fechaFinal = new Date(reqBody.fechaFinal);
 };
 
-let resultadoPeticion = function(exito, message){
+let ResultadoPeticion = function(exito, message){
     this.exito= exito;
     this.message = message;
 };
@@ -25,17 +25,43 @@ let resultadoPeticion = function(exito, message){
 // No se deben llamar manualmente las funciones, solo resolverPeticion.
 
 PeticionReservacion.prototype.resolverPeticion = function(connection, callback){
-
+    
+    this.checarConflictos(connection, (numberConflicts) =>{
+        if(numberConflicts == 0){
+            this.checarReglasUsuario(connection, (peticionCorrecta) =>{
+                if(peticionCorrecta){
+                    this.insertarPeticion(connection, (resultado) => {
+                        callback(resultado);
+                        return;
+                    });
+                }else{
+                    callback(new ResultadoPeticion(false, "No se puede completar la reservacion en este momento. Checa el reglamento de reservacion de canchas"));
+                }
+            });
+        }
+        else{
+            callback(new ResultadoPeticion(false, "La reservacion choca con una reservacion ya existente"));
+        }
+    });
 };
 
 // Encontrar la cantidad de Reservaciones que tengan fecha de inicio < mi fecha final y fecha final > mi fecha de inicio
 PeticionReservacion.prototype.checarConflictos = function(connection, callback){
-
+    let miFechaInicio =  this.fechaInicio.toISOString().slice(0, 19).replace('T', ' ');
+    let miFechaFin = this.fechaFinal.toISOString().slice(0, 19).replace('T', ' ');
+    const query = queries.checarConflictos(miFechaInicio, miFechaFin, this.cancha.ID);
+    connection.query(query, (error, results, fields) => {
+        if(error){
+            callback(1);
+        }else{
+            callback(results[0].conflictos);
+        }
+    });
 };
 
 // Por el momento no sabemos de reglas especificas, pero aqui se checarian
 PeticionReservacion.prototype.checarReglasUsuario = function(connection, callback){
-
+    callback(true);
 };
 
 PeticionReservacion.prototype.insertarPeticion = function(connection, callback){
@@ -46,10 +72,10 @@ PeticionReservacion.prototype.insertarPeticion = function(connection, callback){
     const query = queries.insertReservacion(fechaInicio, fechaFinal, idUsuario, idCancha);
     connection.query(query, (error, results, fields) => {
         if(error){
-            callback(new resultadoPeticion(false, "Hubo un error desconocido, refresque la página e intentelo de nuevo"));
+            callback(new ResultadoPeticion(false, "Hubo un error desconocido, refresque la página e intentelo de nuevo"));
             return;
         }
-        callback(new resultadoPeticion(true, "Listo, hemos agregado su reservación"));
+        callback(new ResultadoPeticion(true, "Listo, hemos agregado su reservación"));
         return;
     });
 };
