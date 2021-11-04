@@ -40,5 +40,16 @@ function getReservaciones(idCancha){
     return query;
 }
 
+function insertReservacion(fechaInicio, fechaFin, idUsuario, idCancha, aprobado = false){
+    let query = `INSERT INTO Reservaciones(Fecha_Inicio, Fecha_Fin, Aprobada, ID_Usuario, ID_Cancha)
+    VALUES ('${fechaInicio}',
+    '${fechaFin}',
+    ${aprobado},
+    '${idUsuario}',
+    ${idCancha});`;
+
+    return query;
+}
+
 // exports
-module.exports = { getUserFromID, addUser, getCanchaFromID, getReservaciones };
+module.exports = { getUserFromID, addUser, getCanchaFromID, getReservaciones, insertReservacion};

@@ -50,4 +50,3 @@ function getReservacionesOfCancha(cancha, connection, fn){
 
 //exports
 module.exports = {getReservacionesOfCancha, ReservacionesCancha};
-
