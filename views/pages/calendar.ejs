@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Head -->
+    <%- include('./head'); %>
+
+    <!-- Titulo -->
+    <title>Calendario</title>
+
+    <!-- CSS utilizado solo para Calendario -->
+	<link rel="stylesheet" href="views/css/calendar_style.css">
+	<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+	
+	<!-- JS utilizado solo para Calendario -->
+	<script src="https://code.jquery.com/jquery-1.12.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+	
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <%- include('./navbar'); %>
+    </header>
+
+    <!-- Calendario Inicio -->
+	<div class="generalCalendarContainer">
+		<h1 class="canchaName mx-auto" id="canchaID"></h1>
+		<h1 class="monthName mx-auto" id="mesID"></h1>
+
+		<div class="calendarButtonFrame mx-auto" id="calendarButtonFrameID">
+		</div>
+
+		<div class="datePickerFrame mx-auto" id="datePickerFrameID">
+		</div>
+
+		<div class="calendarContainer" >
+			<div class="encabezado">
+				<ul class="weekdays" id="weekdaysID">
+				</ul>
+			</div>
+
+			<div class="timeslots-container">
+				<ul class="timeslots" id="timeslotsID">
+				</ul>
+			</div>
+
+			<div class="eventContainer" id="event_containerID">
+			</div>
+
+		</div>
+	</div>
+
+	<!-- JS Calendario -->
+		<script src="views/js/calendar_functions.js"></script>
+
+    <!-- Calendario Final -->
+
+
+    <!-- Footer -->
+    <footer>
+        <%- include('./footer'); %>
+    </footer>
+    
+</body>
+</html>

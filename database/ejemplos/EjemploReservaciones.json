@@ -1,8 +1,8 @@
 [
   {
     "idReservacion": 2,
-    "fechaInicio": "2021-11-01 20:00:00",
-    "fechaFin": "2021-11-01 21:00:00",
+    "fechaInicio": "2021-11-10 20:00:00",
+    "fechaFin": "2021-11-10 21:00:00",
     "aprobada": 1,
     "idUsuario": "0226259",
     "idCancha": 2,
@@ -11,8 +11,8 @@
   },
   {
     "idReservacion": 3,
-    "fechaInicio": "2021-11-01 22:00:00",
-    "fechaFin": "2021-11-01 23:00:00",
+    "fechaInicio": "2021-11-11 22:00:00",
+    "fechaFin": "2021-11-11 23:00:00",
     "aprobada": 1,
     "idUsuario": "0226259",
     "idCancha": 2,
@@ -21,8 +21,8 @@
   },
   {
     "idReservacion": 4,
-    "fechaInicio": "2021-11-01 22:00:00",
-    "fechaFin": "2021-11-01 23:00:00",
+    "fechaInicio": "2021-11-09 22:00:00",
+    "fechaFin": "2021-11-09 23:00:00",
     "aprobada": 1,
     "idUsuario": "0226259",
     "idCancha": 2,
@@ -31,8 +31,8 @@
   },
   {
     "idReservacion": 1,
-    "fechaInicio": "2021-11-02 20:00:00",
-    "fechaFin": "2021-11-02 21:00:00",
+    "fechaInicio": "2021-11-07 20:00:00",
+    "fechaFin": "2021-11-07 21:00:00",
     "aprobada": 1,
     "idUsuario": "0226259",
     "idCancha": 2,

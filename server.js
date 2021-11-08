@@ -97,6 +97,14 @@ app.get('/Reservaciones/:idCancha', (req, res) =>{
     }  
 });
 
+// Calendar
+app.get('/Calendario', (req, res) => {
+	res.render('pages/calendar', { 
+        userInfo: new UserClass.User(req.user)
+    });
+});
+
+
 // Login
 app.get('/IniciarSesion', (req, res) => {
     res.redirect('/auth/google');
