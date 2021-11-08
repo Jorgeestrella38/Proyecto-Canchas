@@ -1,0 +1,86 @@
+[
+  {
+    "idReservacion": 7,
+    "fechaInicio": 1635897600,
+    "fechaFin": 1635901200,
+    "aprobada": 1,
+    "idUsuario": "0226259",
+    "idCancha": 1,
+    "nombreUsuario": "Juan Marquina Cancino",
+    "esAdmin": 1,
+    "inicioModoText": "2021-11-03 00:00:00",
+    "finModoTexto": "2021-11-03 01:00:00"
+  },
+  {
+    "idReservacion": 22,
+    "fechaInicio": 1636192800,
+    "fechaFin": 1636196400,
+    "aprobada": 0,
+    "idUsuario": "0226259",
+    "idCancha": 1,
+    "nombreUsuario": "Juan Marquina Cancino",
+    "esAdmin": 1,
+    "inicioModoText": "2021-11-06 10:00:00",
+    "finModoTexto": "2021-11-06 11:00:00"
+  },
+  {
+    "idReservacion": 21,
+    "fechaInicio": 1636218000,
+    "fechaFin": 1636221600,
+    "aprobada": 0,
+    "idUsuario": "0226259",
+    "idCancha": 1,
+    "nombreUsuario": "Juan Marquina Cancino",
+    "esAdmin": 1,
+    "inicioModoText": "2021-11-06 17:00:00",
+    "finModoTexto": "2021-11-06 18:00:00"
+  },
+  {
+    "idReservacion": 23,
+    "fechaInicio": 1636228800,
+    "fechaFin": 1636232400,
+    "aprobada": 0,
+    "idUsuario": "0226259",
+    "idCancha": 1,
+    "nombreUsuario": "Juan Marquina Cancino",
+    "esAdmin": 1,
+    "inicioModoText": "2021-11-06 20:00:00",
+    "finModoTexto": "2021-11-06 21:00:00"
+  },
+  {
+    "idReservacion": 24,
+    "fechaInicio": 1636329600,
+    "fechaFin": 1636333200,
+    "aprobada": 0,
+    "idUsuario": "0226259",
+    "idCancha": 1,
+    "nombreUsuario": "Juan Marquina Cancino",
+    "esAdmin": 1,
+    "inicioModoText": "2021-11-08 00:00:00",
+    "finModoTexto": "2021-11-08 01:00:00"
+  },
+  {
+    "idReservacion": 25,
+    "fechaInicio": 1636376400,
+    "fechaFin": 1636380000,
+    "aprobada": 0,
+    "idUsuario": "0226259",
+    "idCancha": 1,
+    "nombreUsuario": "Juan Marquina Cancino",
+    "esAdmin": 1,
+    "inicioModoText": "2021-11-08 13:00:00",
+    "finModoTexto": "2021-11-08 14:00:00"
+  },
+  {
+    "idReservacion": 19,
+    "fechaInicio": 1667514828,
+    "fechaFin": 1667518428,
+    "aprobada": 0,
+    "idUsuario": "0226259",
+    "idCancha": 1,
+    "nombreUsuario": "Juan Marquina Cancino",
+    "esAdmin": 1,
+    "inicioModoText": "2022-11-03 22:33:48",
+    "finModoTexto": "2022-11-03 23:33:48"
+  }
+]
