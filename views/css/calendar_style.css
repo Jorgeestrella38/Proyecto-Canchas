@@ -1,0 +1,386 @@
+li{
+	list-style: none;
+}
+
+ul{
+	margin: 0;
+	padding: 0;
+}
+
+
+
+
+
+/* ------------------ Nombre de la Cancha ------------------*/
+.canchaName{
+	/* background-color: #5a0a22; */
+	text-align: center;
+	color: #B79257;
+	font-family: serif;
+	font-size: 2rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	height: 80px;
+	max-width: 30rem;
+	min-width: 20rem;
+	position: relative;
+	box-shadow:
+		-7px -7px 20px 0px #0002,
+		-4px -4px 5px 0px #0002,
+		7px 7px 20px 0px #0002,
+		4px 4px 5px 0px #0001,
+		inset 0px 0px 0px 0px #0002,
+		inset 0px 0px 0px 0px #0001,
+		inset 0px 0px 0px 0px #0002,        inset 0px 0px 0px 0px #0001;
+	transition:box-shadow 0.6s cubic-bezier(.79,.21,.06,.81);
+	border-radius: 10px;
+}
+
+
+
+
+
+
+
+/* ------------------ Nombre del Mes ------------------*/
+.monthName{
+	/* background-color: #5a0a22; */
+	text-align: center;
+	color: #B79257;
+	font-family: serif;
+	font-size: 2rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	height: 80px;
+	max-width: 30rem;
+	min-width: 20rem;
+	position: relative;
+	box-shadow:
+		-7px -7px 20px 0px #0002,
+		-4px -4px 5px 0px #0002,
+		7px 7px 20px 0px #0002,
+		4px 4px 5px 0px #0001,
+		inset 0px 0px 0px 0px #0002,
+		inset 0px 0px 0px 0px #0001,
+		inset 0px 0px 0px 0px #0002,        inset 0px 0px 0px 0px #0001;
+	transition:box-shadow 0.6s cubic-bezier(.79,.21,.06,.81);
+	border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+/* ------------------ Buttons ------------------*/
+.calendarButtonFrame{
+	display: flex;
+	text-align: center;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	height: 80px;
+	width: 250px;
+	position: relative;
+	box-shadow:
+		-7px -7px 20px 0px #0002,
+		-4px -4px 5px 0px #0002,
+		7px 7px 20px 0px #0002,
+		4px 4px 5px 0px #0001,
+		inset 0px 0px 0px 0px #0002,
+		inset 0px 0px 0px 0px #0001,
+		inset 0px 0px 0px 0px #0002,        inset 0px 0px 0px 0px #0001;
+	transition:box-shadow 0.6s cubic-bezier(.79,.21,.06,.81);
+	border-radius: 10px;
+	margin-bottom: 1rem;
+	z-index: 10;
+}
+  
+.calendarButtonFrame .calendarButton{
+	height: 50px;
+	width: 50px;
+	border-radius: 3px;
+	background: #e0e5ec;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
+	box-shadow:
+		-7px -7px 20px 0px #0002,
+		-4px -4px 5px 0px #0002,
+		7px 7px 20px 0px #0002,
+		4px 4px 5px 0px #0001;
+	transition:box-shadow 0.6s cubic-bezier(.79,.21,.06,.81);
+	font-size: 26px;
+	color: #666;
+	text-decoration: none;
+}
+
+.calendarButtonFrame:hover > .calendarButton{
+	filter: blur(1px);
+	transform: scale(0.95);
+}
+
+.calendarButtonFrame .calendarButton:hover{
+	filter: blur(0px);
+	transform: scale(1);
+}
+
+.calendarButtonFrame .calendarButton:active{
+	box-shadow:  
+		4px 4px 6px 0 rgba(9, 8, 8, 0.5),
+		-4px -4px 6px 0 rgba(116, 125, 136, .2), 
+		inset -4px -4px 6px 0 rgba(12, 12, 12, 0.5),
+		inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
+}
+
+
+
+
+/* ------------------ DatePicker ------------------*/
+.datePickerInput{
+	text-align: center;
+	box-shadow:
+		-7px -7px 20px 0px #0002,
+		-4px -4px 5px 0px #0002,
+		7px 7px 20px 0px #0002,
+		4px 4px 5px 0px #0001;
+}
+
+
+.datePickerFrame{
+	text-align: center;
+	color: #B79257;
+	font-family: serif;
+	font-size: 1.5rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	height: 80px;
+	max-width: 25rem;
+	min-width: 20rem;
+	position: relative;
+
+	transition:box-shadow 0.6s cubic-bezier(.79,.21,.06,.81);
+	border-radius: 10px;
+
+	margin-bottom: 10px;
+}
+
+.ui-datepicker {
+    font-family: 'Times New Roman' !important;
+}
+
+.ui-datepicker-header {
+    background: #064a77 !important;
+    font-family:'Times New Roman' !important;
+}
+
+.ui-datepicker th {
+    background-color: #8A1538;
+    text-transform: uppercase;
+    font-size: 8pt;
+    color: #B79257;
+}
+
+.ui-datepicker-calendar .ui-state-default {
+	background: #ffffff !important;
+	color:#000000 !important;
+}
+
+.ui-datepicker-calendar .ui-state-active {
+    background: #8A1538 !important;
+    color: #B79257 !important;
+    text-shadow: 0px 1px 0px #4d7a85 !important;
+}
+
+.ui-datepicker-calendar .ui-state-hover {
+    background: #8A1538 !important;
+    color: #B79257 !important;
+}
+
+
+
+
+/* ------------------ DatePicker Button ------------------ */
+.calendarButtonDatePicker{
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 3px;
+	background: #e0e5ec;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
+	box-shadow:
+		-7px -7px 20px 0px #0002,
+		-4px -4px 5px 0px #0002,
+		7px 7px 20px 0px #0002,
+		4px 4px 5px 0px #0001;
+	transition:box-shadow 0.6s cubic-bezier(.79,.21,.06,.81);
+	font-size: 26px;
+	color: #666;
+	text-decoration: none;
+}
+
+.calendarButtonDatePicker:hover{
+	transform: scale(1.1);
+}
+
+.calendarButtonDatePicker:active{
+	box-shadow:  
+		4px 4px 6px 0 rgba(9, 8, 8, 0.5),
+		-4px -4px 6px 0 rgba(116, 125, 136, .2), 
+		inset -4px -4px 6px 0 rgba(12, 12, 12, 0.5),
+		inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
+}
+
+
+
+
+
+
+
+/* ------------------ Calendario ------------------*/
+.generalCalendarContainer{
+	background: url(/views/assets/Home/UP.jpg);
+	background-repeat: no-repeat;
+	min-height: 950px;
+	background-size: 100% 100%;
+	padding-top: 2rem;
+}
+
+.calendarContainer{
+	/* background-color:#B79257; */
+	display: grid;
+	grid-template-columns: 50px auto;
+	grid-template-rows: auto;
+	gap: 5px 0px;
+	grid-template-areas:
+		". encabezado"
+		"timeslots-container main";
+}
+
+.weekdays {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	min-width: 50rem;
+	
+}
+
+.weekdays{
+	text-align: center;
+}
+
+.weekdays p{
+	margin: 0px;
+	
+}
+
+.encabezado{
+	background: #8A1538;
+	color: #B79257;
+	text-align: center;
+	grid-area: encabezado;
+
+	border: solid;
+	border-color: #B79257;
+
+	box-shadow:  
+		4px 4px 6px 0 rgba(9, 8, 8, 0.5),
+		-4px -4px 6px 0 rgba(116, 125, 136, .2), 
+		inset -4px -4px 6px 0 rgba(12, 12, 12, 0.5),
+		inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
+}
+
+.timeslots-container{
+	background: #064a77;
+	color: #ffffff;
+	grid-area: timeslots-container;
+	justify-content: left;
+	box-shadow:  
+		4px 4px 6px 0 rgba(9, 8, 8, 0.5),
+		-4px -4px 6px 0 rgba(116, 125, 136, .2), 
+		inset -4px -4px 6px 0 rgba(12, 12, 12, 0.5),
+		inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
+}
+
+.timeslots{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.timeslots li{
+	min-height: 60px;
+}
+
+.timeslots li::after{
+	content: "";
+	position: absolute;
+	left: 10px;
+	width: 97%;
+	height: 1px;
+	background: lightgray;
+	z-index: 1;
+}
+
+.eventContainer{
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	grid-template-rows: repeat(24, 1fr);
+	grid-area: main;
+	position: relative;
+
+	/* border: solid 1px; */
+	/* border-color: black; */
+	background-color: #ebe9e2;
+}
+
+
+
+
+
+/* ------------------ Slots de eventos ------------------*/
+.slot{
+	height: 3.5rem; 
+	width: 7rem;
+	position: absolute;
+	background: darkslategray;
+	border-radius: 5px;
+	z-index: 5;
+	color:white;
+	font-size: 12px;
+
+	box-shadow:
+		-7px -7px 20px 0px #0002,
+		-4px -4px 5px 0px #0002,
+		7px 7px 20px 0px #0002,
+		4px 4px 5px 0px #0001,
+		inset 0px 0px 0px 0px #0002,
+		inset 0px 0px 0px 0px #0001,
+		inset 0px 0px 0px 0px #0002,        inset 0px 0px 0px 0px #0001;
+}
+
+.slot:hover{
+	position: absolute;
+	background: darkslategray;
+	border-radius: 5px;
+	z-index: 5;
+	color:white;
+	font-size: 12px;
+	transform: scale(0.95);
+
+	box-shadow:  
+		4px 4px 6px 0 rgba(9, 8, 8, 0.5),
+		-4px -4px 6px 0 rgba(116, 125, 136, .2), 
+		inset -4px -4px 6px 0 rgba(12, 12, 12, 0.5),
+		inset 4px 4px 6px 0 rgba(116, 125, 136, .3);
+}
