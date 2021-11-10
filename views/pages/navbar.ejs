@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="navbar navbar-customClass navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark">
   <a class="navbar-brand" href="#">
     <img src="/views/assets/UP_logo.png" alt="" width="200rem">
   </a>
@@ -12,14 +12,38 @@
       <li class="nav-item active">
         <a class="nav-link" href="/Inicio"> Inicio <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Reservaciones"> Reservaciones </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/MasInfo"> Más información </a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Reservaciones
+        </a>
+        <div class="dropdown-menu"  style="background-color: #FFFFFF; width: 100px;" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" style="text-align: center;" href="#">
+            <img src="/views/assets/Navbar/Basketball.svg" alt="" width="50rem">
+            <h4>Básquetbol </h4>
+          </a>
+          <a class="dropdown-item" style="text-align: center;" href="#">
+            <img src="/views/assets/Navbar/Football.svg" alt="" width="50rem">
+            <h4>Fútbol </h4>
+          </a>
+          <a class="dropdown-item" style="text-align: center;" href="#">
+            <img src="/views/assets/Navbar/Volleyball.svg" alt="" width="50rem">
+            <h4>Volleyball </h4>
+          </a>
+          <a class="dropdown-item" style="text-align: center;" href="#">
+            <img src="/views/assets/Navbar/Tennis.svg" alt="" width="50rem">
+            <h4>Tennis </h4>
+          </a>
+          <a class="dropdown-item" style="text-align: center;" href="#">
+            <img src="/views/assets/Navbar/Padel.svg" alt="" width="50rem">
+            <h4>Padel </h4>
+          </a>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/ComoReservar"> ¿Cómo reservar? </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/MasInfo"> Más información </a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
