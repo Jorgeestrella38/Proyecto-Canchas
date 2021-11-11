@@ -9,11 +9,23 @@
   
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <!-- Componente Inicio -->
+      <% if(pageType == 'Inicio'){ %>
+        <li class="nav-item active">
+      <% } 
+        else {%>
+          <li class="nav-item">
+      <% }%>
         <a class="nav-link" href="/Inicio"> Inicio <span class="sr-only">(current)</span></a>
       </li>
       
-      <li class="nav-item dropdown">
+      <!-- Componente Reservaciones -->
+      <% if(pageType == 'Reservaciones'){ %>
+        <li class="nav-item dropdown active">
+      <% } 
+        else {%>
+          <li class="nav-item dropdown">
+      <% }%>
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Reservaciones
         </a>
@@ -40,10 +52,24 @@
           </a>
         </div>
       </li>
-      <li class="nav-item">
+
+      <!-- Componente ComoReservar -->
+      <% if(pageType == 'ComoReservar'){ %>
+        <li class="nav-item active">
+      <% } 
+        else {%>
+          <li class="nav-item">
+      <% }%>
         <a class="nav-link" href="/ComoReservar"> ¿Cómo reservar? </a>
       </li>
-      <li class="nav-item">
+
+      <!-- Componente MasInformacion -->
+      <% if(pageType == 'MasInformacion'){ %>
+        <li class="nav-item active">
+      <% } 
+        else {%>
+          <li class="nav-item">
+      <% }%>
         <a class="nav-link" href="/MasInfo"> Más información </a>
       </li>
     </ul>
