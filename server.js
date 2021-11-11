@@ -32,7 +32,7 @@ app.use(passport.session());
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 
-app.use(express.static(__dirname));
+app.use('/', express.static(__dirname));
   
 // ----------------------Prototypes-----------------------------
 const UserClass = require("./classes/user.js");
@@ -80,6 +80,10 @@ app.get('/Reservaciones', (req, res) => {
 
 // Paginas de Reservaciones Individuales por cancha
 app.get('/Reservaciones/:idCancha', (req, res) =>{
+    res.render('pages/calendar', { 
+        pageType: "Inicio", userInfo: new UserClass.User(req.user)
+    });
+    /*
     if(req.user){
         //usuario loggeado
         CanchasClass.getCanchaFromID(req.params.idCancha, dbConnection, (cancha) => {
@@ -88,7 +92,8 @@ app.get('/Reservaciones/:idCancha', (req, res) =>{
             }else{
                 // Aqui renderizar pagina de reservacion de la cancha
                 ReservacionesClass.getReservacionesOfCancha(cancha, dbConnection, (cancha, reservacionesCancha) => {
-                    res.send("Hello World");
+
+                        res.send('Jello world')
                 });
             }
         });
@@ -96,7 +101,7 @@ app.get('/Reservaciones/:idCancha', (req, res) =>{
     else{
         req.session.redirectTo = '/Reservaciones/' + req.params.idCancha;
         res.redirect('/IniciarSesion');
-    }  
+    }  */
 });
 
 // Calendar

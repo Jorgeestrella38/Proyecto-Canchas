@@ -42,8 +42,8 @@ CREATE TABLE Recurrentes(
     Viernes BOOLEAN NOT NULL,
     Sabado BOOLEAN NOT NULL,
     Domingo BOOLEAN NOT NULL,
-    Hora_Inicio DATETIME NOT NULL,
-    Hora_Fin DATETIME NOT NULL,
+    Hora_Inicio TIME NOT NULL,
+    Hora_Fin TIME NOT NULL,
     ID_Cancha int NOT NULL,
     Comentarios varchar(200) NOT NULL,
     FOREIGN KEY (ID_Cancha) REFERENCES Canchas(ID));
