@@ -102,6 +102,25 @@ app.get('/Reservaciones/:idCancha', (req, res) =>{
     }  
 });
 
+app.post('/Reservaciones/:idCancha', (req, res) =>{
+    if(req.user){
+        //usuario loggeado
+        CanchasClass.getCanchaFromID(req.params.idCancha, dbConnection, (cancha) => {
+            if(cancha == null){
+                res.send(null);
+            }else{
+                // Aqui renderizar pagina de reservacion de la cancha
+                ReservacionesClass.getReservacionesOfCancha(cancha, dbConnection, (cancha, reservacionesCancha) => {
+                    res.send( reservacionesCancha );
+                });
+            }
+        });
+    }
+    else{
+        res.send(null);
+    }  
+});
+
 // Login
 app.get('/IniciarSesion', (req, res) => {
     res.redirect('/auth/google');
