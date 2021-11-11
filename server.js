@@ -49,28 +49,28 @@ app.get('/', (req, res) => {
 
 // Pagina de prueba con todos los links
 app.get('/Links', (req, res) => {
-    res.render('pages/links', { userInfo: new UserClass.User(req.user) });
+    res.render('pages/links', { pageType: "Inicio", userInfo: new UserClass.User(req.user) });
 });
 
 // Error permisos no sufucientes
 app.get('/OnlyAdmin', (req, res) => {
-    res.render('pages/error', { userInfo: new UserClass.User(req.user), error: new ErrorMessages.ErrorNotAuthorized() });
+    res.render('pages/error', { pageType: "Inicio", userInfo: new UserClass.User(req.user), error: new ErrorMessages.ErrorNotAuthorized() });
 });
 
 //Log in Fallido
 app.get('/FailedLogin', (req, res) => {
-    res.render('pages/error', { userInfo: new UserClass.User(req.user), error: new ErrorMessages.ErrorFailedLogin() });
+    res.render('pages/error', { pageType: "Inicio", userInfo: new UserClass.User(req.user), error: new ErrorMessages.ErrorFailedLogin() });
 });
 
 // Home
 app.get('/Inicio', (req, res) => {
-    res.render('pages/home', { userInfo: new UserClass.User(req.user) });
+    res.render('pages/home', { pageType: "Inicio", userInfo: new UserClass.User(req.user) });
 });
 
 // Reservaciones
 app.get('/Reservaciones', (req, res) => {
     if(req.user){ 
-        res.render('pages/reservations', { userInfo: new UserClass.User(req.user) });
+        res.render('pages/reservations', { pageType: "Reservaciones", userInfo: new UserClass.User(req.user) });
     }
     else{
         res.redirect('/IniciarSesion');
@@ -83,7 +83,7 @@ app.get('/Reservaciones/:idCancha', (req, res) =>{
         //usuario loggeado
         CanchasClass.getCanchaFromID(req.params.idCancha, dbConnection, (cancha) => {
             if(cancha == null){
-                res.render('pages/error', { userInfo: new UserClass.User(req.user), error: new ErrorMessages.ErrorPageMissing() });
+                res.render('pages/error', { pageType: "Inicio", userInfo: new UserClass.User(req.user), error: new ErrorMessages.ErrorPageMissing() });
             }else{
                 // Aqui renderizar pagina de reservacion de la cancha
                 ReservacionesClass.getReservacionesOfCancha(cancha, dbConnection, (cancha, reservacionesCancha) => {
@@ -100,7 +100,7 @@ app.get('/Reservaciones/:idCancha', (req, res) =>{
 // Calendar
 app.get('/Calendario', (req, res) => {
 	res.render('pages/calendar', { 
-        userInfo: new UserClass.User(req.user)
+        pageType: "Inicio", userInfo: new UserClass.User(req.user)
     });
 });
 
@@ -118,12 +118,12 @@ app.get('/CerrarSesion', (req, res) =>{
 
 // How to reserve
 app.get('/ComoReservar', (req, res) => {
-    res.render('pages/howToReserve', { userInfo: new UserClass.User(req.user) });
+    res.render('pages/howToReserve', { pageType: "ComoReservar", userInfo: new UserClass.User(req.user) });
 });
 
 // More info
 app.get('/MasInfo', (req, res) => {
-    res.render('pages/moreInfo', { userInfo: new UserClass.User(req.user) });
+    res.render('pages/moreInfo', { pageType: "MasInformacion", userInfo: new UserClass.User(req.user) });
 });
   
 // Google Auth
