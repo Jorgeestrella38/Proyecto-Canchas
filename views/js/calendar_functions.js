@@ -198,7 +198,7 @@ function recargar(){
     // Poner el encabezado del calendario
         let weekdays = '';
         for(let i=0;i<7;i++){
-            weekdays += "<li style='border-right:solid; border-color: #B79257; grid-column:" + (i+1) + "; grid-column-start: " + (i+1) + "; grid-column-end: " + (i+2) + ";'>";
+            weekdays += "<li style='border-right:solid; border-color: #B79257; grid-column:" + (i+1) + "; grid-column-start: " + (i+1) + "; grid-column-end: " + (i+2) + "; min-width: 0.8rem;'>";
             weekdays += "<p>" + getDiaNombre(i) + "</p>";
             weekdays += "<p>" + getDia(i) + "</p>";
             weekdays += "</li>";
@@ -226,7 +226,7 @@ function recargar(){
                 reservacionIndividual = infoDate(c, objetoReservaciones);
 
                 if(reservacionIndividual != null){
-                    event_container += "<div class='slot' style='margin-top: 1px; grid-row:" +  j + "; grid-column:" + i + "; grid-column-start: " + i + "; grid-column-end: " + (i+1) + ";'>";
+                    event_container += "<div class='slot' style='grid-row:" +  j + "; grid-row-start: " + j + "; grid-row-end: " + (j+1) + "; grid-column:" + i + "; grid-column-start: " + i + "; grid-column-end: " + (i+1) + ";'>";
                     event_container += "<div class='event-status'>RESERVADO</div>";
                     event_container += "<span> Reservación No." + reservacionIndividual.idReservacion  + "</span>"
                     event_container += "</div>";
