@@ -73,6 +73,7 @@ app.get('/Reservaciones', (req, res) => {
         res.render('pages/reservations', { pageType: "Reservaciones", userInfo: new UserClass.User(req.user) });
     }
     else{
+        req.session.redirectTo = '/Reservaciones';
         res.redirect('/IniciarSesion');
     } 
 });
@@ -93,6 +94,7 @@ app.get('/Reservaciones/:idCancha', (req, res) =>{
         });
     }
     else{
+        req.session.redirectTo = '/Reservaciones/' + req.params.idCancha;
         res.redirect('/IniciarSesion');
     }  
 });
@@ -133,7 +135,9 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/FailedLogin' }),
   function(req, res) {
-    res.redirect('/Inicio');
+    const redirect = req.session.redirectTo || '/Inicio';
+    delete req.session.redirectTo;
+    res.redirect(redirect);
   });
 
 // Server setup
