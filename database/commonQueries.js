@@ -61,5 +61,11 @@ function checarConflictos(fechaInicio, fechaFin, idCancha){
     return query;
 }
 
+function getRecurrentes(idCancha){
+    let query = `SELECT * FROM Recurrentes
+    WHERE ID_Cancha = ${idCancha};`;
+    return query;
+}
+
 // exports
-module.exports = { getUserFromID, addUser, getCanchaFromID, getReservaciones, insertReservacion, checarConflictos};
+module.exports = { getUserFromID, addUser, getCanchaFromID, getReservaciones, insertReservacion, checarConflictos, getRecurrentes};

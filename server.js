@@ -32,7 +32,7 @@ app.use(passport.session());
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 
-app.use(express.static(__dirname));
+app.use('/', express.static(__dirname));
   
 // ----------------------Prototypes-----------------------------
 const UserClass = require("./classes/user.js");
@@ -73,12 +73,17 @@ app.get('/Reservaciones', (req, res) => {
         res.render('pages/reservations', { pageType: "Reservaciones", userInfo: new UserClass.User(req.user) });
     }
     else{
+        req.session.redirectTo = '/Reservaciones';
         res.redirect('/IniciarSesion');
     } 
 });
 
 // Paginas de Reservaciones Individuales por cancha
 app.get('/Reservaciones/:idCancha', (req, res) =>{
+    res.render('pages/calendar', { 
+        pageType: "Inicio", userInfo: new UserClass.User(req.user)
+    });
+    /*
     if(req.user){
         //usuario loggeado
         CanchasClass.getCanchaFromID(req.params.idCancha, dbConnection, (cancha) => {
@@ -87,14 +92,16 @@ app.get('/Reservaciones/:idCancha', (req, res) =>{
             }else{
                 // Aqui renderizar pagina de reservacion de la cancha
                 ReservacionesClass.getReservacionesOfCancha(cancha, dbConnection, (cancha, reservacionesCancha) => {
-                    res.send("Hello World");
+
+                        res.send('Jello world')
                 });
             }
         });
     }
     else{
+        req.session.redirectTo = '/Reservaciones/' + req.params.idCancha;
         res.redirect('/IniciarSesion');
-    }  
+    }  */
 });
 
 // Calendar
@@ -133,7 +140,9 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/FailedLogin' }),
   function(req, res) {
-    res.redirect('/Inicio');
+    const redirect = req.session.redirectTo || '/Inicio';
+    delete req.session.redirectTo;
+    res.redirect(redirect);
   });
 
 // Server setup

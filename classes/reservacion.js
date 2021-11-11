@@ -16,9 +16,10 @@ Reservaciones =
 
 // La estructura de sqlReservacion esta en la carpeta de database/commonQueries.js
 // Hay un ejemplo en database/ejemplos
-let ReservacionesCancha = function(cancha, sqlReservacion){
+let ReservacionesCancha = function(cancha, sqlReservacion, sqlRecurrentes){
     this.cancha = cancha;
     this.reservaciones = sqlReservacion;
+    this.recurrentes = sqlRecurrentes;
 };
 ReservacionesCancha.prototype.infoDate = function(date){
     // En caso de que no se haya "corregido" la hora de js
@@ -42,7 +43,15 @@ function getReservacionesOfCancha(cancha, connection, fn){
             fn(cancha, null);
             return;
         }
-        fn(cancha, new ReservacionesCancha(cancha, results));
+        const queryRecurrentes = queries.getRecurrentes(cancha.ID);
+        connection.query(queryRecurrentes, (errorRec, resultsRec, fieldsRec) => {
+            if(errorRec){
+                fn(cancha, null);
+            }
+            fn(cancha, new ReservacionesCancha(cancha, results, resultsRec));
+        });
+         
+        
         return;
     });
 }
