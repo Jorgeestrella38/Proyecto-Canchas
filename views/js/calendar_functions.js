@@ -18,8 +18,8 @@ let ReservacionesEjemplo =
     },
     {
         "idReservacion": 20,
-        "fechaInicio": 1636549200,
-        "fechaFin": 1636560000,
+        "fechaInicio": 1637549200,
+        "fechaFin": 1637560000,
         "aprobada": 0,
         "idUsuario": "0226259",
         "idCancha": 1,
@@ -30,8 +30,8 @@ let ReservacionesEjemplo =
     },
     {
         "idReservacion": 21,
-        "fechaInicio": 1639148400,
-        "fechaFin": 1639177200,
+        "fechaInicio": 1639248400,
+        "fechaFin": 1639577200,
         "aprobada": 0,
         "idUsuario": "0226259",
         "idCancha": 1,
@@ -198,6 +198,11 @@ function recargar(){
         // Activa el DatePicker
             $(document).ready(function () {
                 $('#datepicker').datepicker({
+                beforeShow: function() {
+                    setTimeout(function(){
+                        $('.ui-datepicker').css('z-index', 99999999999999);
+                    }, 0);
+                },
                 inline: true,
                 showOtherMonths: true,
                 dayNamesMin: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
@@ -210,7 +215,7 @@ function recargar(){
     // Poner el encabezado del calendario
         let weekdays = '';
         for(let i=0;i<7;i++){
-            weekdays += "<li style='border-right:solid; border-color: #B79257;'>";
+            weekdays += "<li style='border-right:solid; border-color: #B79257; grid-column:" + (i+1) + "; grid-column-start: " + (i+1) + "; grid-column-end: " + (i+2) + ";'>";
             weekdays += "<p>" + getDiaNombre(i) + "</p>";
             weekdays += "<p>" + getDia(i) + "</p>";
             weekdays += "</li>";
@@ -238,7 +243,7 @@ function recargar(){
                 reservacionIndividual = infoDate(c, objetoReservaciones);
 
                 if(reservacionIndividual != null){
-                    event_container += "<div class='slot slot-" + 1 + "'  style='margin-top: 1px; grid-row:" +  j + "; grid-column:" + i + "; '>";
+                    event_container += "<div class='slot' style='margin-top: 1px; grid-row:" +  j + "; grid-column:" + i + "; grid-column-start: " + i + "; grid-column-end: " + (i+1) + ";'>";
                     event_container += "<div class='event-status'>RESERVADO</div>";
                     event_container += "<span> Reservación No." + reservacionIndividual.idReservacion  + "</span>"
                     event_container += "</div>";
