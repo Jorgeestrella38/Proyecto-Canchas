@@ -53,7 +53,7 @@ let objetoReservaciones = JSON.parse(document.currentScript.getAttribute('reserv
 objetoReservaciones = new ReservacionesCancha(objetoReservaciones.cancha.Nombre, objetoReservaciones.reservaciones, objetoReservaciones.recurrentes);
 
 
-
+const cancha = JSON.parse(document.currentScript.getAttribute('cancha'));
 
 
 
@@ -121,10 +121,20 @@ getDia = function(x){
     return dd
 }
 
-
-
-
-
+// --------------------------- POST para actualizar datos ----------------------------------
+function updateData(){
+    fetch('/Reservaciones/' + cancha.ID, {method: 'Post', body: 
+        new URLSearchParams({
+            type: 'update',
+        })
+    }).then( (value) => {
+        return value.json();
+    })
+    .then( (json) => {
+        objetoReservaciones = new ReservacionesCancha(json.cancha.Nombre, json.reservaciones, json.recurrentes);
+        recargar();
+    });
+}
 
 
 // ----------------------------Funcion recargar----------------------------
@@ -159,7 +169,7 @@ function recargar(){
             calendarButtonFrame += "<i class='fas fa-angle-left'></i>";
             calendarButtonFrame += "</a>";
         }
-        calendarButtonFrame += "<a class='calendarButton' onclick='recargar()'>";
+        calendarButtonFrame += "<a class='calendarButton' onclick='updateData()'>";
         calendarButtonFrame += "<i class='fas fa-redo-alt'></i>";
         calendarButtonFrame += "</a>";
         calendarButtonFrame += "<a class='calendarButton' onclick='semanaSiguiente()'>";
@@ -228,7 +238,7 @@ function recargar(){
                 if(reservacionIndividual != null){
                     event_container += "<div class='slot' style='grid-row:" +  j + "; grid-row-start: " + j + "; grid-row-end: " + (j+1) + "; grid-column:" + i + "; grid-column-start: " + i + "; grid-column-end: " + (i+1) + ";'>";
                     event_container += "<div class='event-status'>RESERVADO</div>";
-                    event_container += "<span> Reservación No." + reservacionIndividual.idReservacion  + "</span>"
+                    event_container += "<span> Reservación No." + (reservacionIndividual.idReservacion ? reservacionIndividual.idReservacion :  " r" + reservacionIndividual.ID)  + "</span>"
                     event_container += "</div>";
                 }
             }
@@ -287,5 +297,4 @@ function getDatePickerDate(){
     }
 }
 
-
-recargar()
+recargar();
