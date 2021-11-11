@@ -1,73 +1,56 @@
 // ----------------------------Variables y funciones para consultas----------------------------
 
-// Ejemplo de querys
-
-let ReservacionesEjemplo =
-[
-    {
-      "idReservacion": 19,
-      "fechaInicio": 1636570800,
-      "fechaFin": 1636574400,
-      "aprobada": 0,
-      "idUsuario": "0226259",
-      "idCancha": 1,
-      "nombreUsuario": "Juan Marquina Cancino",
-      "esAdmin": 1,
-      "inicioModoText": "2021-11-10 19:00",
-      "finModoTexto": "2021-11-10 20:00"
-    },
-    {
-        "idReservacion": 20,
-        "fechaInicio": 1636549200,
-        "fechaFin": 1636560000,
-        "aprobada": 0,
-        "idUsuario": "0226259",
-        "idCancha": 1,
-        "nombreUsuario": "Juan Marquina Cancino",
-        "esAdmin": 1,
-        "inicioModoText": "2021-11-10 13:00",
-        "finModoTexto": "2021-11-10 16:00"
-    },
-    {
-        "idReservacion": 21,
-        "fechaInicio": 1639148400,
-        "fechaFin": 1639177200,
-        "aprobada": 0,
-        "idUsuario": "0226259",
-        "idCancha": 1,
-        "nombreUsuario": "Juan Marquina Cancino",
-        "esAdmin": 1,
-        "inicioModoText": "2021-12-10 15:00",
-        "finModoTexto": "2021-12-10 23:00"
-    }
-];
-
 // Funciones de querys
-let ReservacionesCancha = function(cancha, sqlReservacion){
+let ReservacionesCancha = function(cancha, sqlReservacion, sqlRecurrentes){
     this.cancha = cancha;
     this.reservaciones = sqlReservacion;
+    this.recurrentes = sqlRecurrentes;
 };
 
 infoDate = function(date, ReservacionesCancha){
     // En caso de que no se haya "corregido" la hora de js
     const sixHourMiliseconds = 6*60*60*1000;
-    date.setTime(date.getTime() - sixHourMiliseconds);
+    // date.setTime(date.getTime() - sixHourMiliseconds);
     for (let reservacion of ReservacionesCancha.reservaciones){
         inicio = new Date(reservacion.fechaInicio*1000);
         fin = new Date(reservacion.fechaFin*1000);
-        if(date.getTime() >= reservacion.fechaInicio*1000 && date.getTime() < reservacion.fechaFin*1000){
+        if(date.getTime()-sixHourMiliseconds >= reservacion.fechaInicio*1000 && date.getTime()-sixHourMiliseconds < reservacion.fechaFin*1000){
             return reservacion;
+        }
+    }
+
+    for (let recurrente of ReservacionesCancha.recurrentes){
+        // checar si algun dia estorba
+        let day = date.getDay();
+        let time = date.toLocaleTimeString('en-US', { hour12: false });
+        if(day == 0 && recurrente.Domingo && time >= recurrente.Hora_Inicio && time < recurrente.Hora_Fin){
+            return recurrente;
+        }
+        if(day == 1 && recurrente.Lunes && time >= recurrente.Hora_Inicio && time < recurrente.Hora_Fin){
+            return recurrente;
+        }
+        if(day == 2 && recurrente.Martes && time >= recurrente.Hora_Inicio && time < recurrente.Hora_Fin){
+            return recurrente;
+        }
+        if(day == 3 && recurrente.Miercoles && time >= recurrente.Hora_Inicio && time < recurrente.Hora_Fin){
+            return recurrente;
+        }
+        if(day == 4 && recurrente.Jueves && time >= recurrente.Hora_Inicio && time < recurrente.Hora_Fin){
+            return recurrente;
+        }
+        if(day == 5 && recurrente.Viernes && time >= recurrente.Hora_Inicio && time < recurrente.Hora_Fin){
+            return recurrente;
+        }
+        if(day == 6 && recurrente.Sabado && time >= recurrente.Hora_Inicio && time < recurrente.Hora_Fin){
+            return recurrente;
         }
     }
     return null;
 };
 
 // Crear objeto reservaciones
-let objetoReservaciones = new ReservacionesCancha(1, ReservacionesEjemplo);
-
-
-
-
+let objetoReservaciones = JSON.parse(document.currentScript.getAttribute('reservaciones'))
+objetoReservaciones = new ReservacionesCancha(objetoReservaciones.cancha.Nombre, objetoReservaciones.reservaciones, objetoReservaciones.recurrentes);
 
 
 
@@ -254,10 +237,8 @@ function recargar(){
 
 // ----------------------------Funciones llamadas desde el ejs----------------------------
 function semanaSiguiente(){
-    console.log(sumaDias);
     sumaDias = parseInt(sumaDias/7);
     sumaDias = sumaDias*7;
-    console.log(sumaDias);
     sumaDias = sumaDias + 7;
 
     recargar();
@@ -298,7 +279,6 @@ function getDatePickerDate(){
 
         recargar();
 
-        console.log(res);
     }
 }
 
