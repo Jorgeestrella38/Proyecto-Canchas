@@ -80,10 +80,6 @@ app.get('/Reservaciones', (req, res) => {
 
 // Paginas de Reservaciones Individuales por cancha
 app.get('/Reservaciones/:idCancha', (req, res) =>{
-    res.render('pages/calendar', { 
-        pageType: "Inicio", userInfo: new UserClass.User(req.user)
-    });
-    /*
     if(req.user){
         //usuario loggeado
         CanchasClass.getCanchaFromID(req.params.idCancha, dbConnection, (cancha) => {
@@ -93,7 +89,9 @@ app.get('/Reservaciones/:idCancha', (req, res) =>{
                 // Aqui renderizar pagina de reservacion de la cancha
                 ReservacionesClass.getReservacionesOfCancha(cancha, dbConnection, (cancha, reservacionesCancha) => {
 
-                        res.send('Jello world')
+                    res.render('pages/calendar', { 
+                        pageType: "Reservaciones", userInfo: new UserClass.User(req.user), cancha: cancha, reservaciones: reservacionesCancha
+                    });
                 });
             }
         });
@@ -101,16 +99,8 @@ app.get('/Reservaciones/:idCancha', (req, res) =>{
     else{
         req.session.redirectTo = '/Reservaciones/' + req.params.idCancha;
         res.redirect('/IniciarSesion');
-    }  */
+    }  
 });
-
-// Calendar
-app.get('/Calendario', (req, res) => {
-	res.render('pages/calendar', { 
-        pageType: "Inicio", userInfo: new UserClass.User(req.user)
-    });
-});
-
 
 // Login
 app.get('/IniciarSesion', (req, res) => {
