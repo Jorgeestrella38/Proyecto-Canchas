@@ -273,8 +273,7 @@ ul{
 .weekdays {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
-	min-width: 50rem;
-	
+	width: 100%;
 }
 
 .weekdays{
@@ -340,9 +339,6 @@ ul{
 	grid-template-rows: repeat(24, 1fr);
 	grid-area: main;
 	position: relative;
-
-	/* border: solid 1px; */
-	/* border-color: black; */
 	background-color: #ebe9e2;
 }
 
@@ -353,7 +349,7 @@ ul{
 /* ------------------ Slots de eventos ------------------*/
 .slot{
 	height: 3.5rem; 
-	width: 7rem;
+	width: 100%;
 	position: absolute;
 	background: darkslategray;
 	border-radius: 5px;
