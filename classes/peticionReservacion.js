@@ -72,11 +72,8 @@ PeticionReservacion.prototype.insertarPeticion = function(connection, callback){
     let idCancha = this.cancha.ID;
     let comentarios = this.comentarios;
     const query = queries.insertReservacion(fechaInicio, fechaFinal, idUsuario, idCancha, false, comentarios);
-    console.log(query);
-    console.log();
     connection.query(query, (error, results, fields) => {
         if(error){
-            console.log(error);
             callback(new ResultadoPeticion(false, "Hubo un error desconocido, refresque la página e intentelo de nuevo"));
             return;
         }

@@ -118,7 +118,6 @@ app.post('/Reservaciones/:idCancha', (req, res) =>{
                 else if(req.body.type == 'post'){
                     peticion = new PeticionesClass.PeticionReservacion(req.user, cancha, req.body);
                     peticion.resolverPeticion(dbConnection, (resultado) =>  {
-                        console.log(resultado);
                         res.send(resultado);
                     });
                 
