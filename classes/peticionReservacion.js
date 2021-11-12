@@ -9,6 +9,7 @@ let PeticionReservacion = function(reqUser, cancha, reqBody){
     this.cancha = cancha;
     this.fechaInicio = new Date(reqBody.fechaInicio);
     this.fechaFinal = new Date(reqBody.fechaFinal);
+    this.comentarios =  reqBody.comentarios;
 };
 
 let ResultadoPeticion = function(exito, message){
@@ -69,9 +70,13 @@ PeticionReservacion.prototype.insertarPeticion = function(connection, callback){
     let fechaFinal = this.fechaFinal.toISOString().slice(0, 19).replace('T', ' ');
     let idUsuario = this.user.ID;
     let idCancha = this.cancha.ID;
-    const query = queries.insertReservacion(fechaInicio, fechaFinal, idUsuario, idCancha);
+    let comentarios = this.comentarios;
+    const query = queries.insertReservacion(fechaInicio, fechaFinal, idUsuario, idCancha, false, comentarios);
+    console.log(query);
+    console.log();
     connection.query(query, (error, results, fields) => {
         if(error){
+            console.log(error);
             callback(new ResultadoPeticion(false, "Hubo un error desconocido, refresque la página e intentelo de nuevo"));
             return;
         }

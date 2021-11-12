@@ -14,7 +14,7 @@ infoDate = function(date, ReservacionesCancha){
     for (let reservacion of ReservacionesCancha.reservaciones){
         inicio = new Date(reservacion.fechaInicio*1000);
         fin = new Date(reservacion.fechaFin*1000);
-        if(date.getTime()-sixHourMiliseconds >= reservacion.fechaInicio*1000 && date.getTime()-sixHourMiliseconds < reservacion.fechaFin*1000){
+        if(date.getTime() >= reservacion.fechaInicio*1000 && date.getTime() < reservacion.fechaFin*1000){
             return reservacion;
         }
     }
@@ -133,6 +133,31 @@ function updateData(){
     .then( (json) => {
         objetoReservaciones = new ReservacionesCancha(json.cancha.Nombre, json.reservaciones, json.recurrentes);
         recargar();
+    });
+}
+
+// --------------------------- POST para mandar formulario ----------------------------------
+// fechaInicio y fechaFin son fechas de javascript 
+function sendData(fechaInicio, fechaFin, comentarios){
+    fetch('/Reservaciones/' + cancha.ID, {method: 'Post', body: 
+        new URLSearchParams({
+            type: 'post',
+            fechaInicio: fechaInicio,
+            fechaFinal: fechaFin,
+            comentarios: comentarios
+        })
+    }).then( (value) => {
+        return value.json();
+    })
+    .then( (json) => {
+        // aqui va tu codigo :)
+        /* 
+            json {
+                exito: true / false (dependiendo si hubo algun error, o todo bien),
+                message: "Algun mensaje relacionado al error, o si no hubo error"
+            }
+        */
+        console.log(json);  // eliminar
     });
 }
 

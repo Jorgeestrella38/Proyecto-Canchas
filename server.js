@@ -110,9 +110,19 @@ app.post('/Reservaciones/:idCancha', (req, res) =>{
                 res.send(null);
             }else{
                 // Aqui renderizar pagina de reservacion de la cancha
+                if(req.body.type == 'update'){
                 ReservacionesClass.getReservacionesOfCancha(cancha, dbConnection, (cancha, reservacionesCancha) => {
                     res.send( reservacionesCancha );
                 });
+                }
+                else if(req.body.type == 'post'){
+                    peticion = new PeticionesClass.PeticionReservacion(req.user, cancha, req.body);
+                    peticion.resolverPeticion(dbConnection, (resultado) =>  {
+                        console.log(resultado);
+                        res.send(resultado);
+                    });
+                
+                }
             }
         });
     }
