@@ -217,7 +217,7 @@ function recargar(){
 
 
     // Poner las horas en el calendario
-        let timeslots=''
+        let timeslots='';
         for(let i=0;i<24;i++){
             timeslots += "<li> " + i + ":00 </li>";
         }
