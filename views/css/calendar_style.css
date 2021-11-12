@@ -343,7 +343,7 @@ ul{
 	min-height: 60px;
 }
 
-.timeslots li::after{
+.timeslots li::before{
 	content: "";
 	position: absolute;
 	left: 10px;

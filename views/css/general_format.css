@@ -6,7 +6,6 @@ h1,h2,h3,h4,h5,h6 {
     font-weight: normal;
     line-height: normal;
     color: #111111;
-    margin: 0;
 }
 
 h1 {
@@ -34,7 +33,6 @@ h6 {
 }
 
 p {
-    margin: 0px;
     font-weight: 500;
     font-size: 15px;
     line-height: 24px;
