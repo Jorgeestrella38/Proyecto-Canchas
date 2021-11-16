@@ -260,6 +260,7 @@ ul{
 	min-height: 950px;
 	background-size: 100% 100%;
 	padding-top: 2rem;
+	padding-bottom: 4rem;
 }
 
 .calendarContainer{
@@ -416,4 +417,90 @@ ul{
 	.slot span, .slot .event-status{
 		font-size: 0.4rem;
 	}
+}
+
+
+
+
+
+
+
+/* ------------------ Formulario ------------------ */
+.calendarForm{
+	background-color: #ffffff;
+	/* max-width: 30rem; */
+	width: 70%;
+	height: 450px;
+	margin-top: 4rem;
+	padding-top: 2rem;
+	border-radius: 1rem;
+}
+
+@media only screen and (min-width: 750px) {
+	.calendarForm{
+		width: 30rem;
+	}
+}
+
+.calendarFormTittle{
+	text-align: center;
+	margin-bottom: 2rem;
+}
+
+.calendarFormDatePicker{
+	width: 80%;
+}
+
+.calendarFormHoursInput{
+	width: 80%;
+}
+
+.calendarFormHoursAppend{
+	width: 100px;
+}
+
+.input-group-prepend .input-group-text{
+	background-color: #8A1538;
+	color: #B79257;
+}
+
+.input-group-append .input-group-text{
+	background-color: #8A1538;
+	color: #B79257;
+}
+
+.calendarFormSelected{
+	background-color: #ffffff;
+}
+
+.calendarFormCharactersLeft{
+	width: 80%;
+	margin-top: 2rem;
+}
+
+.calendarFormTextArea{
+	width: 80%;
+}
+
+
+.calendarFormButtonFrame{
+	margin-top: 1rem;
+	text-align: center;
+}
+
+.calendarFormButton{
+	background-color:lightgray;
+	text-align: center;
+}
+
+.calendarFormButton:hover{
+	background-color:rgb(95, 95, 95);
+	color: #ffffff;
+	text-align: center;
+}
+
+.calendarFormButton:active{
+	background-color:rgb(72, 72, 72);
+	color: #ffffff;
+	text-align: center;
 }
