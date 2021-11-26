@@ -138,7 +138,7 @@ function updateData(){
 
 // --------------------------- POST para mandar formulario ----------------------------------
 // fechaInicio y fechaFin son fechas de javascript 
-function sendData(fechaInicio, fechaFin, comentarios){
+function sendData(fechaInicio, fechaFin, comentarios, valid){
     fetch('/Reservaciones/' + cancha.ID, {method: 'Post', body: 
         new URLSearchParams({
             type: 'post',
@@ -150,26 +150,133 @@ function sendData(fechaInicio, fechaFin, comentarios){
         return value.json();
     })
     .then( (json) => {
-        // aqui va tu codigo :)
-        /* 
-            json {
-                exito: true / false (dependiendo si hubo algun error, o todo bien),
-                message: "Algun mensaje relacionado al error, o si no hubo error"
+        if(valid){
+            json = {
+                exito: true,
+                message: "Datos de formulario correctos."
             }
-        */
-        console.log(json);  // eliminar
+        }
+        else{
+            json = {
+                exito: false,
+                message: "Datos de formulario incorrectos."
+            }
+        }
     });
 }
+
+// Funcion que manda a llamar a la funcion sendData y le manda las fechas y los comentarios
+function obtenerVariablesFormulario(){
+    let firstDateToSend;
+    let lastDateToSend;
+    let commentsToSend = '';
+
+    let cadena = '';
+
+    // Fecha
+    let datePickerDate = $( "#datepicker1" ).datepicker( "getDate" );
+    let actualDate0 = new Date();
+    let actualDate = new Date(actualDate0.getMonth()+1  + '/' + actualDate0.getDate() + '/' +  actualDate0.getFullYear() + ' 0:00');
+    let resDate;
+
+    if(datePickerDate != null){
+        let resDate = datePickerDate.getTime() - actualDate.getTime();
+        if(resDate < 0){
+            alert(resDate);
+            cadena += "Introduzca una fecha válida (del día de hoy o posterior).\n\n"; 
+        }
+        else{
+            // $( "#datepicker1" ).css({backgroundColor: '#ffffff'});
+            dataToSend = datePickerDate;
+        }
+    }
+    else{
+        cadena += "Introduzca una fecha.\n\n";
+    }
+
+    // Horas
+    let valueID1 = $("#calendarFormSelectedID1 option:selected").val();
+    let valueID2 = $("#calendarFormSelectedID2 option:selected").val();
+    let resHours;
+
+    if(valueID1 != 'Elige...' && valueID2 != 'Elige...'){
+        resHours = Number(valueID2)-Number(valueID1);
+        if(resHours <= 0){
+            cadena += "Introduzca un horario válido (mínimo de 1 hora).\n\n";
+        }
+        else{
+            firstDateToSend = new Date(datePickerDate);
+            firstDateToSend.setTime(firstDateToSend.getTime() + Number(valueID1));
+
+            lastDateToSend = new Date(datePickerDate);
+            lastDateToSend.setTime(lastDateToSend.getTime() + Number(valueID2));
+
+            if(firstDateToSend.getTime()-actualDate0.getTime() < 0){
+                cadena += "Introduzca un horario válido (Después de esta hora).\n\n";
+            }
+        }
+
+    }
+    else{
+        cadena += "Complete los dos campos solicitados para el horario.\n\n";
+    }
+
+    if(cadena != ''){
+        alert(cadena);
+    }
+    else{
+        commentsToSend = $("#calendarFormTextAreaWriteID").val();
+
+        sendData(firstDateToSend, lastDateToSend, commentsToSend, true);
+    }
+}
+
+
+
+
+
+
+
+
 
 
 // ----------------------------Funcion recargar----------------------------
 
-function recargar(){
+function recargar(){    
     // Poner la cancha
         let cancha = 'Cancha ';
         cancha += objetoReservaciones.cancha;
 
         document.getElementById("canchaID").innerHTML = cancha;
+
+    // Poner el carousel
+        let carousel = '';
+        carousel += "<ol class='carousel-indicators'>";
+        carousel += "   <li data-target='#carouselExampleIndicators' data-slide-to='0' class='active'></li>";
+        carousel += "   <li data-target='#carouselExampleIndicators' data-slide-to='1'></li>";
+        carousel += "   <li data-target='#carouselExampleIndicators' data-slide-to='2'></li>";
+        carousel += "</ol>";
+        carousel += "<div class='carousel-inner'>";
+        carousel += "   <div class='carousel-item active'>";
+        carousel += "       <img class='d-block w-100' src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcivideportes.com.co%2Fwp-content%2Fuploads%2F2020%2F03%2Fcampos-deportivos-recubrimiento-sintetico-civideportes-768x576.png&f=1&nofb=1' alt='First slide'>";
+        carousel += "   </div>";
+        carousel += "   <div class='carousel-item'>";
+        carousel += "       <img class='d-block w-100' src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcivideportes.com.co%2Fwp-content%2Fuploads%2F2020%2F03%2Fcampos-deportivos-recubrimiento-sintetico-civideportes-768x576.png&f=1&nofb=1' alt='Second slide'>";
+        carousel += "   </div>";
+        carousel += "   <div class='carousel-item'>";
+        carousel += "       <img class='d-block w-100' src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcivideportes.com.co%2Fwp-content%2Fuploads%2F2020%2F03%2Fcampos-deportivos-recubrimiento-sintetico-civideportes-768x576.png&f=1&nofb=1' alt='Third slide'>";
+        carousel += "   </div>";
+        carousel += "</div>";
+        carousel += "<a class='carousel-control-prev' href='#carouselExampleIndicators' role='button' data-slide='prev'>";
+        carousel += "   <span class='carousel-control-prev-icon' aria-hidden='true'></span>";
+        carousel += "   <span class='sr-only'>Previous</span>";
+        carousel += "</a>";
+        carousel += "<a class='carousel-control-next' href='#carouselExampleIndicators' role='button' data-slide='next'>";
+        carousel += "   <span class='carousel-control-next-icon' aria-hidden='true'></span>";
+        carousel += "   <span class='sr-only'>Next</span>";
+        carousel += "</a>";
+
+        document.getElementById("carouselExampleIndicators").innerHTML = carousel;
 
     // Poner el mes
         let newDay = fecha(0);
@@ -312,7 +419,7 @@ function recargar(){
         formularioFrame +=  "</div>";
 
         formularioFrame +=  "<div class='calendarFormButtonFrame'>";
-        formularioFrame +=      "<button class='calendarFormButton' onclick='mandarFormulario()'>Enviar</button>";
+        formularioFrame +=      "<button class='calendarFormButton' onclick='obtenerVariablesFormulario()'>Enviar</button>";
         formularioFrame +=  "</div>";
 
         document.getElementById("calendarFormID").innerHTML = formularioFrame;
@@ -425,6 +532,13 @@ function recargar(){
 
 
 
+
+
+
+
+
+
+
 // ----------------------------Funciones llamadas desde el ejs----------------------------
 function semanaSiguiente(){
     sumaDias = parseInt(sumaDias/7);
@@ -472,48 +586,6 @@ function getDatePickerDate(){
     }
 }
 
-function mandarFormulario(){
-    let cadena = '';
-
-    // Fecha
-    let datePickerDate = $( "#datepicker1" ).datepicker( "getDate" );
-    let actualDate = new Date();
-    let resDate;
-
-    if(datePickerDate != null){
-        let resDate = datePickerDate.getTime() - actualDate.getTime();
-        if(resDate < 0){
-            cadena += "Introduzca una fecha válida (del día de hoy o posterior).\n\n"; 
-        }
-        else{
-            $( "#datepicker1" ).css({backgroundColor: '#ffffff'});
-        }
-    }
-    else{
-        cadena += "Introduzca una fecha.\n\n";
-    }
-
-    // Horas
-    let valueID1 = $("#calendarFormSelectedID1 option:selected").val();
-    let valueID2 = $("#calendarFormSelectedID2 option:selected").val();
-    let resHours;
-    if(valueID1 != 'Elige...' && valueID2 != 'Elige...'){
-        resHours = Number(valueID2)-Number(valueID1);
-        if(resHours <= 0){
-            cadena += "Introduzca un horario válido (mínimo de 1 hora).\n\n";
-        }
-
-    }
-    else{
-        cadena += "Complete los dos campos solicitados para el horario.\n\n";
-    }
-
-    if(cadena != ''){
-        alert(cadena);
-    }
-    else{
-        
-    }
-}
-
 recargar();
+
+

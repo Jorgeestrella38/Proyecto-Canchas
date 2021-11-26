@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- Head -->
-    <%- include('./head'); %>
+	<!-- Head -->
+	<%- include('./head'); %>
 
-    <!-- Titulo -->
-    <title>Calendario</title>
+		<!-- Titulo -->
+		<title>Calendario</title>
 
-    <!-- CSS utilizado solo para Calendario -->
-	<link rel="stylesheet" href="/views/css/calendar_style.css">
-	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
-	
-	<!-- JS utilizado solo para Calendario -->
-	<script src="https://code.jquery.com/jquery-1.12.1.js"></script>
-	<script src="http://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-	
+		<!-- CSS utilizado solo para Calendario -->
+		<link rel="stylesheet" href="/views/css/calendar_style.css">
+		<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+
+		<!-- JS utilizado solo para Calendario -->
+		<script src="https://code.jquery.com/jquery-1.12.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
 </head>
-<body>
-    <!-- Navbar -->
-    <header>
-        <%- include('./navbar'); %>
-    </header>
 
-    <!-- Calendario Inicio -->
+<body>
+	<!-- Navbar -->
+	<header>
+		<%- include('./navbar'); %>
+	</header>
+
+	<!-- Calendario Inicio -->
 	<div class="generalCalendarContainer">
+
 		<h1 class="canchaName mx-auto" id="canchaID"></h1>
+
+		<div id='carouselExampleIndicators' class='carousel slide mx-auto' data-ride='carousel'>
+		</div>
+
 		<h1 class="monthName mx-auto" id="mesID"></h1>
+
 
 		<div class="calendarButtonFrame mx-auto" id="calendarButtonFrameID">
 		</div>
@@ -33,7 +41,7 @@
 		<div class="datePickerFrame mx-auto" id="datePickerFrameID">
 		</div>
 
-		<div class="calendarContainer" >
+		<div class="calendarContainer">
 			<div class="encabezado">
 				<ul class="weekdays" id="weekdaysID">
 				</ul>
@@ -49,21 +57,24 @@
 
 		</div>
 
-		<div class="calendarForm mx-auto"  id="calendarFormID">
+		<div class="calendarForm mx-auto" id="calendarFormID">
 
 		</div>
 	</div>
 
 	<!-- JS Calendario -->
-		<script src="/views/js/calendar_functions.js" reservaciones = '<%- JSON.stringify(reservaciones) %>' cancha =  '<%- JSON.stringify(cancha) %>'> </script>
+	<script src="/views/js/calendar_functions.js" reservaciones='<%- JSON.stringify(reservaciones) %>'
+		cancha='<%- JSON.stringify(cancha) %>'> </script>
 
-    <!-- Calendario Final -->
+	<!-- Calendario Final -->
 
 
-    <!-- Footer -->
-    <footer>
-        <%- include('./footer'); %>
-    </footer>
-    
+	<!-- Footer -->
+	<footer>
+		<%- include('./footer'); %>
+	</footer>
+
 </body>
+
 </html>
+
