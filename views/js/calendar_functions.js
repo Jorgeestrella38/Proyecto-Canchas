@@ -138,7 +138,7 @@ function updateData(){
 
 // --------------------------- POST para mandar formulario ----------------------------------
 // fechaInicio y fechaFin son fechas de javascript 
-function sendData(fechaInicio, fechaFin, comentarios){
+function sendData(fechaInicio, fechaFin, comentarios, valid){
     fetch('/Reservaciones/' + cancha.ID, {method: 'Post', body: 
         new URLSearchParams({
             type: 'post',
@@ -150,26 +150,133 @@ function sendData(fechaInicio, fechaFin, comentarios){
         return value.json();
     })
     .then( (json) => {
-        // aqui va tu codigo :)
-        /* 
-            json {
-                exito: true / false (dependiendo si hubo algun error, o todo bien),
-                message: "Algun mensaje relacionado al error, o si no hubo error"
+        if(valid){
+            json = {
+                exito: true,
+                message: "Datos de formulario correctos."
             }
-        */
-        console.log(json);  // eliminar
+        }
+        else{
+            json = {
+                exito: false,
+                message: "Datos de formulario incorrectos."
+            }
+        }
     });
 }
+
+// Funcion que manda a llamar a la funcion sendData y le manda las fechas y los comentarios
+function obtenerVariablesFormulario(){
+    let firstDateToSend;
+    let lastDateToSend;
+    let commentsToSend = '';
+
+    let cadena = '';
+
+    // Fecha
+    let datePickerDate = $( "#datepicker1" ).datepicker( "getDate" );
+    let actualDate0 = new Date();
+    let actualDate = new Date(actualDate0.getMonth()+1  + '/' + actualDate0.getDate() + '/' +  actualDate0.getFullYear() + ' 0:00');
+    let resDate;
+
+    if(datePickerDate != null){
+        let resDate = datePickerDate.getTime() - actualDate.getTime();
+        if(resDate < 0){
+            alert(resDate);
+            cadena += "Introduzca una fecha válida (del día de hoy o posterior).\n\n"; 
+        }
+        else{
+            // $( "#datepicker1" ).css({backgroundColor: '#ffffff'});
+            dataToSend = datePickerDate;
+        }
+    }
+    else{
+        cadena += "Introduzca una fecha.\n\n";
+    }
+
+    // Horas
+    let valueID1 = $("#calendarFormSelectedID1 option:selected").val();
+    let valueID2 = $("#calendarFormSelectedID2 option:selected").val();
+    let resHours;
+
+    if(valueID1 != 'Elige...' && valueID2 != 'Elige...'){
+        resHours = Number(valueID2)-Number(valueID1);
+        if(resHours <= 0){
+            cadena += "Introduzca un horario válido (mínimo de 1 hora).\n\n";
+        }
+        else{
+            firstDateToSend = new Date(datePickerDate);
+            firstDateToSend.setTime(firstDateToSend.getTime() + Number(valueID1));
+
+            lastDateToSend = new Date(datePickerDate);
+            lastDateToSend.setTime(lastDateToSend.getTime() + Number(valueID2));
+
+            if(firstDateToSend.getTime()-actualDate0.getTime() < 0){
+                cadena += "Introduzca un horario válido (Después de esta hora).\n\n";
+            }
+        }
+
+    }
+    else{
+        cadena += "Complete los dos campos solicitados para el horario.\n\n";
+    }
+
+    if(cadena != ''){
+        alert(cadena);
+    }
+    else{
+        commentsToSend = $("#calendarFormTextAreaWriteID").val();
+
+        sendData(firstDateToSend, lastDateToSend, commentsToSend, true);
+    }
+}
+
+
+
+
+
+
+
+
 
 
 // ----------------------------Funcion recargar----------------------------
 
-function recargar(){
+function recargar(){    
     // Poner la cancha
         let cancha = 'Cancha ';
         cancha += objetoReservaciones.cancha;
 
         document.getElementById("canchaID").innerHTML = cancha;
+
+    // Poner el carousel
+        let carousel = '';
+        carousel += "<ol class='carousel-indicators'>";
+        carousel += "   <li data-target='#carouselExampleIndicators' data-slide-to='0' class='active'></li>";
+        carousel += "   <li data-target='#carouselExampleIndicators' data-slide-to='1'></li>";
+        carousel += "   <li data-target='#carouselExampleIndicators' data-slide-to='2'></li>";
+        carousel += "</ol>";
+        carousel += "<div class='carousel-inner'>";
+        carousel += "   <div class='carousel-item active'>";
+        carousel += "       <img class='d-block w-100' src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcivideportes.com.co%2Fwp-content%2Fuploads%2F2020%2F03%2Fcampos-deportivos-recubrimiento-sintetico-civideportes-768x576.png&f=1&nofb=1' alt='First slide'>";
+        carousel += "   </div>";
+        carousel += "   <div class='carousel-item'>";
+        carousel += "       <img class='d-block w-100' src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcivideportes.com.co%2Fwp-content%2Fuploads%2F2020%2F03%2Fcampos-deportivos-recubrimiento-sintetico-civideportes-768x576.png&f=1&nofb=1' alt='Second slide'>";
+        carousel += "   </div>";
+        carousel += "   <div class='carousel-item'>";
+        carousel += "       <img class='d-block w-100' src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcivideportes.com.co%2Fwp-content%2Fuploads%2F2020%2F03%2Fcampos-deportivos-recubrimiento-sintetico-civideportes-768x576.png&f=1&nofb=1' alt='Third slide'>";
+        carousel += "   </div>";
+        carousel += "</div>";
+        carousel += "<a class='carousel-control-prev' href='#carouselExampleIndicators' role='button' data-slide='prev'>";
+        carousel += "   <span class='carousel-control-prev-icon' aria-hidden='true'></span>";
+        carousel += "   <span class='sr-only'>Previous</span>";
+        carousel += "</a>";
+        carousel += "<a class='carousel-control-next' href='#carouselExampleIndicators' role='button' data-slide='next'>";
+        carousel += "   <span class='carousel-control-next-icon' aria-hidden='true'></span>";
+        carousel += "   <span class='sr-only'>Next</span>";
+        carousel += "</a>";
+
+        document.getElementById("carouselExampleIndicators").innerHTML = carousel;
 
     // Poner el mes
         let newDay = fecha(0);
@@ -222,6 +329,7 @@ function recargar(){
                     }, 0);
                 },
                 inline: true,
+                dateFormat: 'dd-mm-yy',
                 showOtherMonths: true,
                 dayNamesMin: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
                 monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -270,7 +378,163 @@ function recargar(){
         }
         
         document.getElementById("event_containerID").innerHTML = event_container;
-}
+
+    // Poner formulario
+        let formularioFrame = "<h1 class='calendarFormTittle'>Hacer una reservación</h1>";
+
+        formularioFrame +=  "<div class='input-group mb-3 calendarFormDatePicker mx-auto'>";
+        formularioFrame +=      "<div class='input-group-prepend'>";
+        formularioFrame +=          "<span class='input-group-text' id='inputGroup-sizing-default'>Fecha</span>";
+        formularioFrame +=      "</div>";
+        formularioFrame +=      "<input type='text' id='datepicker1' class='form-control' aria-label='Default' aria-describedby='inputGroup-sizing-default' placeholder='Elige...'>";
+        formularioFrame +=  "</div>";
+
+        formularioFrame +=  "<div class='input-group mb-3 calendarFormHoursInput mx-auto'>";
+        formularioFrame +=      "<select class='custom-select' id='calendarFormSelectedID1'>";
+        formularioFrame +=          "<option selected>Elige...</option>";
+        for(let i=0; i<24;i++){
+            formularioFrame += "<option class='calendarFormSelected' value='" + (i*60*60*1000) + "'>" + i + ":00" + "</option>";
+        }
+        formularioFrame +=      "</select>";
+        formularioFrame +=      "<div class='input-group-append'>";
+        formularioFrame +=          "<label class='input-group-text calendarFormHoursAppend' for='inputGroupSelect02'>Hora Inicio</label>";
+        formularioFrame +=      "</div>";
+        formularioFrame +=  "</div>";
+
+        formularioFrame +=  "<div class='input-group mb-3 calendarFormHoursInput mx-auto'>";
+        formularioFrame +=      "<select class='custom-select' id='calendarFormSelectedID2'>";
+        formularioFrame +=          "<option selected>Elige...</option>";
+        for(let i=0; i<24;i++){
+            formularioFrame += "<option class='calendarFormSelected' value='" + (i*60*60*1000) + "'>" + i + ":00" + "</option>";
+        }
+        formularioFrame +=      "</select>";
+        formularioFrame +=      "<div class='input-group-append'>";
+        formularioFrame +=          "<label class='input-group-text calendarFormHoursAppend' for='inputGroupSelect02'>Hora Fin</label>";
+        formularioFrame +=      "</div>";
+        formularioFrame +=  "</div>";
+
+        formularioFrame +=  "<h4 class='calendarFormCharactersLeft mx-auto' id='calendarFormCharactersLeftID'>0/300</h4>";
+        formularioFrame +=  "<div class='input-group calendarFormTextArea mx-auto'>";
+        formularioFrame +=      "<textarea class='form-control' id='calendarFormTextAreaWriteID' maxlength='300' aria-label='With textarea'  placeholder='Comentarios (opcional).'></textarea>";
+        formularioFrame +=  "</div>";
+
+        formularioFrame +=  "<div class='calendarFormButtonFrame'>";
+        formularioFrame +=      "<button class='calendarFormButton' onclick='obtenerVariablesFormulario()'>Enviar</button>";
+        formularioFrame +=  "</div>";
+
+        document.getElementById("calendarFormID").innerHTML = formularioFrame;
+
+        // Activa el DatePicker
+            $(document).ready(function () {
+                $('#datepicker1').datepicker({
+                beforeShow: function() {
+                    setTimeout(function(){
+                        $('.ui-datepicker').css('z-index', 99999999999999);
+                    }, 0);
+                },
+                inline: true,
+                dateFormat: 'dd-mm-yy',
+                showOtherMonths: true,
+                dayNamesMin: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                });
+            });
+
+        // Verificador visual de fecha correcta
+            $(document).ready(function () {
+                $("#datepicker1").mouseup(function(){
+                    let datePickerDate = $( "#datepicker1" ).datepicker( "getDate" );
+                    let actualDate = new Date();
+
+                    if(datePickerDate != null){
+                        let res = datePickerDate.getTime() - actualDate.getTime();
+                        if(res < 0){
+                            $( "#datepicker1" ).css({backgroundColor: 'red'});
+                        }
+                        else{
+                            $( "#datepicker1" ).css({backgroundColor: '#ffffff'});
+                        }
+                    }
+                });
+            });
+        
+        // Verificador visual de hora correcta
+            $(document).ready(function () {
+                $("#calendarFormSelectedID1").mouseup(function(){
+                    let valueID1 = $("#calendarFormSelectedID1 option:selected").val();
+                    let valueID2 = $("#calendarFormSelectedID2 option:selected").val();
+                    if(valueID1 != 'Elige...' && valueID2 != 'Elige...'){
+                        var x = Number(valueID2)-Number(valueID1);
+                        valueID1 = Number(valueID1);
+                        valueID2 = Number(valueID2);
+                        if(x <= 0){
+                            if(valueID1 > valueID2){
+                                $("#calendarFormSelectedID1").css({backgroundColor: 'red'});
+                                $("#calendarFormSelectedID2").css({backgroundColor: 'red'});
+                            }
+                            else if(valueID2 < valueID1){
+                                $("#calendarFormSelectedID1").css({backgroundColor: 'red'});
+                                $("#calendarFormSelectedID2").css({backgroundColor: 'red'});
+                            }
+                            else if(valueID1 == valueID2){
+                                $("#calendarFormSelectedID1").css({backgroundColor: 'red'});
+                                $("#calendarFormSelectedID2").css({backgroundColor: 'red'});
+                            }
+                        }
+                        else{
+                            $("#calendarFormSelectedID1").css({backgroundColor: '#ffffff'});
+                            $("#calendarFormSelectedID2").css({backgroundColor: '#ffffff'});
+                        }
+                    }
+                });
+            });
+
+            $(document).ready(function () {
+                $("#calendarFormSelectedID2").mouseup(function(){
+                    let valueID1 = $("#calendarFormSelectedID1 option:selected").val();
+                    let valueID2 = $("#calendarFormSelectedID2 option:selected").val();
+                    if(valueID1 != 'Elige...' && valueID2 != 'Elige...'){
+                        var x = Number(valueID2)-Number(valueID1);
+                        valueID1 = Number(valueID1);
+                        valueID2 = Number(valueID2);
+                        if(x <= 0){
+                            if(valueID1 > valueID2){
+                                $("#calendarFormSelectedID1").css({backgroundColor: 'red'});
+                                $("#calendarFormSelectedID2").css({backgroundColor: 'red'});
+                            }
+                            else if(valueID2 < valueID1){
+                                $("#calendarFormSelectedID1").css({backgroundColor: 'red'});
+                                $("#calendarFormSelectedID2").css({backgroundColor: 'red'});
+                            }
+                            else if(valueID1 == valueID2){
+                                $("#calendarFormSelectedID1").css({backgroundColor: 'red'});
+                                $("#calendarFormSelectedID2").css({backgroundColor: 'red'});
+                            }
+                        }
+                        else{
+                            $("#calendarFormSelectedID1").css({backgroundColor: '#ffffff'});
+                            $("#calendarFormSelectedID2").css({backgroundColor: '#ffffff'});
+                        }
+                    }
+                });
+            });
+        
+        // Contador de caracteres limite
+            $("#calendarFormTextAreaWriteID").keyup(function(){
+                $("#calendarFormCharactersLeftID").text( $(this).val().length + '/300');
+            });
+
+
+
+    }
+
+
+
+
+
+
+
 
 
 
@@ -323,3 +587,5 @@ function getDatePickerDate(){
 }
 
 recargar();
+
+
