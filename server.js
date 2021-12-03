@@ -32,47 +32,102 @@ app.use(passport.session());
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 
-app.use(express.static(__dirname));
+app.use('/', express.static(__dirname));
   
-/*
-userInfo = 
-    {
-        ID: "0226259",
-        Nombre_Completo: "Juan Marquina Cancino",
-        Es_Admin: true
-    };
-*/
-
-const error = 
-    {
-        message: "Inicio de sesión fallido",
-        solution: "Revisa que estés accediendo con tu cuenta institucional, pues únicamente con esta podrás acceder a todas las funciones de usuario. Si no perteneces a la UP, vete."
-    };
+// ----------------------Prototypes-----------------------------
+const UserClass = require("./classes/user.js");
+const ErrorMessages = require("./classes/errorMessages.js");
+const CanchasClass = require("./classes/cancha.js");
+const ReservacionesClass = require("./classes/reservacion.js");
+const PeticionesClass = require("./classes/peticionReservacion.js");
 
 // -----------------------Functions-----------------------
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
-    // res.redirect('/Inicio');
+    res.redirect('/Inicio');
 });
 
 // Pagina de prueba con todos los links
 app.get('/Links', (req, res) => {
-    res.render('pages/links', { userInfo: req.user });
+    res.render('pages/links', { pageType: "Inicio", userInfo: new UserClass.User(req.user) });
 });
 
-app.get('/Error', (req, res) => {
-    res.render('pages/error', { userInfo: req.user, error: error });
+// Error permisos no sufucientes
+app.get('/OnlyAdmin', (req, res) => {
+    res.render('pages/error', { pageType: "Inicio", userInfo: new UserClass.User(req.user), error: new ErrorMessages.ErrorNotAuthorized() });
+});
+
+//Log in Fallido
+app.get('/FailedLogin', (req, res) => {
+    res.render('pages/error', { pageType: "Inicio", userInfo: new UserClass.User(req.user), error: new ErrorMessages.ErrorFailedLogin() });
 });
 
 // Home
 app.get('/Inicio', (req, res) => {
-    res.render('pages/home', { userInfo: req.user });
+    res.render('pages/home', { pageType: "Inicio", userInfo: new UserClass.User(req.user) });
 });
 
 // Reservaciones
 app.get('/Reservaciones', (req, res) => {
-    res.render('pages/reservations', { userInfo: req.user });
+    if(req.user){ 
+        res.render('pages/reservations', { pageType: "Reservaciones", userInfo: new UserClass.User(req.user) });
+    }
+    else{
+        req.session.redirectTo = '/Reservaciones';
+        res.redirect('/IniciarSesion');
+    } 
+});
+
+// Paginas de Reservaciones Individuales por cancha
+app.get('/Reservaciones/:idCancha', (req, res) =>{
+    if(req.user){
+        //usuario loggeado
+        CanchasClass.getCanchaFromID(req.params.idCancha, dbConnection, (cancha) => {
+            if(cancha == null){
+                res.render('pages/error', { pageType: "Inicio", userInfo: new UserClass.User(req.user), error: new ErrorMessages.ErrorPageMissing() });
+            }else{
+                // Aqui renderizar pagina de reservacion de la cancha
+                ReservacionesClass.getReservacionesOfCancha(cancha, dbConnection, (cancha, reservacionesCancha) => {
+
+                    res.render('pages/calendar', { 
+                        pageType: "Reservaciones", userInfo: new UserClass.User(req.user), cancha: cancha, reservaciones: reservacionesCancha
+                    });
+                });
+            }
+        });
+    }
+    else{
+        req.session.redirectTo = '/Reservaciones/' + req.params.idCancha;
+        res.redirect('/IniciarSesion');
+    }  
+});
+
+app.post('/Reservaciones/:idCancha', (req, res) =>{
+    if(req.user){
+        //usuario loggeado
+        CanchasClass.getCanchaFromID(req.params.idCancha, dbConnection, (cancha) => {
+            if(cancha == null){
+                res.send(null);
+            }else{
+                // Aqui renderizar pagina de reservacion de la cancha
+                if(req.body.type == 'update'){
+                ReservacionesClass.getReservacionesOfCancha(cancha, dbConnection, (cancha, reservacionesCancha) => {
+                    res.send( reservacionesCancha );
+                });
+                }
+                else if(req.body.type == 'post'){
+                    peticion = new PeticionesClass.PeticionReservacion(req.user, cancha, req.body);
+                    peticion.resolverPeticion(dbConnection, (resultado) =>  {
+                        res.send(resultado);
+                    });
+                
+                }
+            }
+        });
+    }
+    else{
+        res.send(null);
+    }  
 });
 
 // Login
@@ -88,12 +143,12 @@ app.get('/CerrarSesion', (req, res) =>{
 
 // How to reserve
 app.get('/ComoReservar', (req, res) => {
-    res.render('pages/howToReserve', { userInfo: req.user });
+    res.render('pages/howToReserve', { pageType: "ComoReservar", userInfo: new UserClass.User(req.user) });
 });
 
 // More info
 app.get('/MasInfo', (req, res) => {
-    res.render('pages/moreInfo', { userInfo: req.user });
+    res.render('pages/moreInfo', { pageType: "MasInformacion", userInfo: new UserClass.User(req.user) });
 });
   
 // Google Auth
@@ -101,9 +156,11 @@ app.get('/auth/google',
   passport.authenticate('google', { scope: ['email', 'profile'] }));
 
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { failureRedirect: '/FailedLogin' }),
   function(req, res) {
-    res.redirect('/Inicio');
+    const redirect = req.session.redirectTo || '/Inicio';
+    delete req.session.redirectTo;
+    res.redirect(redirect);
   });
 
 // Server setup

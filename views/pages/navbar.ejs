@@ -1,6 +1,6 @@
 <!-- Navbar -->
-<nav class="navbar navbar-customClass navbar-expand-lg navbar-dark">
-  <a class="navbar-brand" href="#">
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <a class="navbar-brand" href="/Inicio">
     <img src="/views/assets/UP_logo.png" alt="" width="200rem">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,24 +9,84 @@
   
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <!-- Componente Inicio -->
+      <% if(pageType == 'Inicio'){ %>
+        <li class="nav-item active">
+      <% } 
+        else {%>
+          <li class="nav-item">
+      <% }%>
         <a class="nav-link" href="/Inicio"> Inicio <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/Reservaciones"> Reservaciones </a>
+      
+      <!-- Componente Reservaciones -->
+      <% if(pageType == 'Reservaciones'){ %>
+        <li class="nav-item dropdown active">
+      <% } 
+        else {%>
+          <li class="nav-item dropdown">
+      <% }%>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Reservaciones
+        </a>
+        <div class="dropdown-menu"  style="background-color: #FFFFFF; width: 100px;" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" style="text-align: center;" href="/Reservaciones/1">
+            <img src="/views/assets/Navbar/Basketball.svg" alt="" width="50rem">
+            <h4>Básquetbol </h4>
+          </a>
+          <a class="dropdown-item" style="text-align: center;" href="/Reservaciones/2">
+            <img src="/views/assets/Navbar/Football.svg" alt="" width="50rem">
+            <h4>Fútbol </h4>
+          </a>
+          <a class="dropdown-item" style="text-align: center;" href="/Reservaciones/3">
+            <img src="/views/assets/Navbar/Volleyball.svg" alt="" width="50rem">
+            <h4>Volleyball </h4>
+          </a>
+          <a class="dropdown-item" style="text-align: center;" href="/Reservaciones/4">
+            <img src="/views/assets/Navbar/Tennis.svg" alt="" width="50rem">
+            <h4>Tennis </h4>
+          </a>
+          <a class="dropdown-item" style="text-align: center;" href="/Reservaciones/5">
+            <img src="/views/assets/Navbar/Padel.svg" alt="" width="50rem">
+            <h4>Padel </h4>
+          </a>
+        </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/MasInfo"> Más información </a>
-      </li>
-      <li class="nav-item">
+
+      <!-- Componente ComoReservar -->
+      <% if(pageType == 'ComoReservar'){ %>
+        <li class="nav-item active">
+      <% } 
+        else {%>
+          <li class="nav-item">
+      <% }%>
         <a class="nav-link" href="/ComoReservar"> ¿Cómo reservar? </a>
+      </li>
+
+      <!-- Componente MasInformacion -->
+      <% if(pageType == 'MasInformacion'){ %>
+        <li class="nav-item active">
+      <% } 
+        else {%>
+          <li class="nav-item">
+      <% }%>
+        <a class="nav-link" href="/MasInfo"> Más información </a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <ul class="navbar-nav mr-auto">
+        <% if (userInfo.Autentificado) { %>
+          <li class="nav-item active">
+            <a class="nav-link navbar-session" href="#">Bienvenido <%= userInfo.getFirstName() %></a> 
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link navbar-session" href="/CerrarSesion"  style="color: #B79257"> Cerrar Sesión </a> 
+          </li>
+        <% }else { %>
         <li class="nav-item active">
-          <a class="nav-link navbar-session" href="/IniciarSesion"  style="color: #B79257"> Iniciar Sesión </a>
+          <a class="nav-link navbar-session" href="/IniciarSesion"  style="color: #B79257"> Iniciar Sesión </a> 
         </li>
+        <% } %>
       </ul>
     </form>
   </div>
